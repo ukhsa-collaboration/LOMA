@@ -123,19 +123,19 @@ Detailed descriptions of the output folder structure and summary reportscan be f
 A series of HTML summary reports can be found in the 'summary' directory, these cover the major areas of interest when sequencing metagenomic samples and should assist in assessing saequencing data quality, sample composition and perform various types of *in silico* phenotyping.
 
 
-#### **<SAMPLE_ID>.<RUN_ID>.summary_report.html** ([`example report`]())
+#### **<SAMPLE_ID>.<RUN_ID>.summary_report.html** 
 - Simiplified summary detailing all major metrics/results of interest, for an overall sample summary.
 
-#### **<SAMPLE_ID>.<RUN_ID>.readqc_report.html** ([`example report`]())
+#### **<SAMPLE_ID>.<RUN_ID>.readqc_report.html** 
 - Read quality metrics, pre- and post- quality control.
 
-#### **<SAMPLE_ID>.<RUN_ID>.taxonomy_report.html** ([`example report`]())
+#### **<SAMPLE_ID>.<RUN_ID>.taxonomy_report.html** 
 - Read-based taxonomic abundance for Kraken2, Centrifuger and/or Sylph (depending on which tools were used).
 
-####  **<SAMPLE_ID>.<RUN_ID>.amr_report.html** ([`example report`]())
+####  **<SAMPLE_ID>.<RUN_ID>.amr_report.html** 
 - Results of AMR typing tools (ABRicate, AMRFinderPlus, ResFinder and RGI).
 
-#### **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html** ([`example report`]())
+#### **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html**
 - Summary of binning results.
 
 # Tips for improving speed and efficiency  <a name="tips"></a>
