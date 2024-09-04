@@ -27,7 +27,7 @@ The pipeline has two primary approaches to analysis:\
 
 The results of these analyses are then available of per-metric files and further compilied into a series of summary reports (HTML and TSV files).
 
-A general overview is provided below. Detailed guidance on the installation, usage and function of LOMA can be found in the **[`wiki`](https://gitlab.phe.gov.uk/Duncan.Berger2/nxf_ont_metagenomic_pipeline/-/wikis/home)**, example outputs can be found here.
+A general overview is provided below. Detailed guidance on the installation, usage and function of LOMA can be found in the **[`wiki`]()**, example outputs can be found here.
 # Pipeline summary <a name="summary"></a>
 
 ## Simplified schematic overview 
@@ -59,9 +59,9 @@ LOMA has two dependencies:
 - A container runtime, both Apptainer and Singularity are supported.
 - Nextflow.
 
-Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a [`script`](https://gitlab.phe.gov.uk/Duncan.Berger2/nxf_ont_metagenomic_pipeline/-/blob/master/bin/get_dbs.py) is provided which will download any requested databases and update the relevant config files. 
+Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a [`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py) is provided which will download any requested databases and update the relevant config files. 
 
-Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`](https://gitlab.phe.gov.uk/Duncan.Berger2/nxf_ont_metagenomic_pipeline/-/wikis/Installation)**.
+Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`]()**.
 
 # Running  <a name="run"></a>
 
@@ -98,7 +98,7 @@ RUN03	XBD     SAMPLE_1	SKIN	/data/projects/metagenome_ont/SAMPLE_3.SKIN.fq.gz
 ```
 Further examples can be found [`here`](). 
 
-Detailed running instructions for LOMA can be found on the **[`wiki`](https://gitlab.phe.gov.uk/Duncan.Berger2/nxf_ont_metagenomic_pipeline/-/wikis/Running)**.
+Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
 
 ### Optional parameters
 
@@ -106,7 +106,7 @@ Detailed running instructions for LOMA can be found on the **[`wiki`](https://gi
 
 
 
-Detailed running instructions for LOMA can be found on the **[`wiki`](https://gitlab.phe.gov.uk/Duncan.Berger2/nxf_ont_metagenomic_pipeline/-/wikis/Running)**.
+Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
 
 
 
@@ -116,7 +116,7 @@ Detailed running instructions for LOMA can be found on the **[`wiki`](https://gi
 
 LOMA will output files per-metric/tool as well as a series of summary reports. Outputs can be found in the directory specified by the '--outdir' parameter (default: 'results'). Results are separated by RUN_ID, then SAMPLE_ID and finally by approach and metric. A summary of the folder structure can be found below. 
 
-Detailed descriptions of the output folder structure and summary reportscan be found on the **[`wiki`](https://gitlab.phe.gov.uk/Duncan.Berger2/nxf_ont_metagenomic_pipeline/-/wikis/Installation)**.
+Detailed descriptions of the output folder structure and summary reportscan be found on the **[`wiki`]()**.
 
 
 ## HTML reports
@@ -177,7 +177,7 @@ If you find the per-base accuracy of your MAGs are low, even after Racon polishi
 --BIN_TAXONOMY.medaka_mag
 ```
 
-Further tips for optimization can be found on the **[`wiki`](https://gitlab.phe.gov.uk/Duncan.Berger2/nxf_ont_metagenomic_pipeline/-/wikis/Running#tips)**.
+Further tips for optimization can be found on the **[`wiki`]()**.
 
 
 # Troubleshooting and errors  <a name="troubleshoot"></a>
