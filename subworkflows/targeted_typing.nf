@@ -40,16 +40,16 @@ workflow TARGETED_TYPING {
     } 
 
     // Subset species with gene databases (if provided), select assemblies or assemblies and reads
-    ch_merged.filter({meta, fasta, fastq -> !(meta.gene_DB.matches(""))}).map{meta -> meta = [meta[0], meta[1]]}.set{ch_secondary_remainder_1B}
-    ch_merged.filter({meta, fasta, fastq -> !(meta.gene_DB.matches(""))}).set{ch_secondary_remainder_1C}
+//    ch_merged.filter({meta, fasta, fastq -> !(meta.gene_DB.matches(""))}).map{meta -> meta = [meta[0], meta[1]]}.set{ch_secondary_remainder_1B}
+//    ch_merged.filter({meta, fasta, fastq -> !(meta.gene_DB.matches(""))}).set{ch_secondary_remainder_1C}
 
-    // If gene databases provided, run BLAST (on assemblies) and Genefinder (on reads)
-    if (params.TARGETED_TYPING.genedbdir) {
-        BLAST_BLASTN(ch_secondary_remainder_1B, params.TARGETED_TYPING.genedbdir)
-        ch_versions = ch_versions.mix(BLAST_BLASTN.out.versions)
+//    // If gene databases provided, run BLAST (on assemblies) and Genefinder (on reads)
+//    if (params.TARGETED_TYPING.genedbdir) {
+//        BLAST_BLASTN(ch_secondary_remainder_1B, params.TARGETED_TYPING.genedbdir)
+//        ch_versions = ch_versions.mix(BLAST_BLASTN.out.versions)
 
-        FILTER_BLAST(BLAST_BLASTN.out.txt)
-        ch_versions = ch_versions.mix(FILTER_BLAST.out.versions)
+//        FILTER_BLAST(BLAST_BLASTN.out.txt)
+//        ch_versions = ch_versions.mix(FILTER_BLAST.out.versions)
 
 //        GENEFINDER(ch_secondary_remainder_1C, params.TARGETED_TYPING.genedbdir)
 //        ch_versions = ch_versions.mix(GENEFINDER.out.versions)
@@ -63,7 +63,7 @@ workflow TARGETED_TYPING {
 //        ch_targetedtyping_reports = ch_targetedtyping_reports.mix(SUMMARIZE_GENEFINDING.out.merged_results)
 //        ch_targetedtyping_reports = ch_targetedtyping_reports.mix(SUMMARIZE_GENEFINDING.out.summary)
 
-    }
+//    }
 
     emit:
     ch_targetedtyping_reports
