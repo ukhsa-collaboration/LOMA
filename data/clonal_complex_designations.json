@@ -1,0 +1,28 @@
+{
+"st_ebg_lookup":
+    {
+      "salmonella": {
+            "('696',)": "320"
+      },
+      "escherichia-coli": {
+            "('342',)": "ST342"
+      },
+      "campylobacter-jejuni-group": {
+            "('21',)": "ST-21",
+            "('441',)": "ST-441"
+      },
+      "listeria": {
+            "('433',)": "ST433",
+	    "('739')":"CC739"
+      },
+      "yersinia": {
+            "('3',)": "CC3",
+            "('98',)": "CC98"
+    },
+      "vibrio-cholerae":{
+            "('69',)": "CC69"
+    },
+      "vibrio-parahaemolyticus":{
+            "('3',)": "CC3"}
+    }
+}
