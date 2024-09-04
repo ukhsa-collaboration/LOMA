@@ -89,10 +89,10 @@ Any number of samples can be included provided they do not have both identical R
 
 Example input file:
 ```
-RUN01	RB01	SAMPLE_1	BLOOD	/data/projects/metagenome_ont/SAMPLE_1.BLOOD.fq.gz
-RUN01	RB02	SAMPLE_2	BLOOD	/data/projects/metagenome_ont/SAMPLE_2.BLOOD.fq.gz
-RUN02	RB01	SAMPLE_3	SALIVA	/data/projects/metagenome_ont/SAMPLE_3.NASOPHARYNGEAL.fq.gz
-RUN03	XBD     SAMPLE_1	SKIN	/data/projects/metagenome_ont/SAMPLE_3.SKIN.fq.gz
+RUN01	RB01	SAMPLE_1	BLOOD	SAMPLE_1.BLOOD.fq.gz
+RUN01	RB02	SAMPLE_2	BLOOD	SAMPLE_2.BLOOD.fq.gz
+RUN02	RB01	SAMPLE_3	SALIVA	SAMPLE_3.NASOPHARYNGEAL.fq.gz
+RUN03	XBD     SAMPLE_1	SKIN	SAMPLE_3.SKIN.fq.gz
 
 ```
 Further examples can be found [`here`](). 
