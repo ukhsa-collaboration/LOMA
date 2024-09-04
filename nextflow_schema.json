@@ -1,0 +1,596 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "https://raw.githubusercontent.com//master/nextflow_schema.json",
+    "title": " pipeline parameters",
+    "description": "",
+    "type": "object",
+    "definitions": {
+        "mandatory_options": {
+            "title": "Mandatory options",
+            "type": "object",
+            "fa_icon": "fas fa-terminal",
+            "description": "Must be specified on the command line",
+            "required": [
+                "input"
+            ],
+            "properties": {
+                "input": {
+                    "type": "string",
+                    "format": "file-path",
+                    "exists": true,
+                    "mimetype": "text/csv",
+                    "pattern": "^\\S+\\.csv$",
+                    "description": "Path to tab-separated file containing sample information (format: run_id\\tbarcode\\tsample_id\\tsample_type,fastq).",
+                    "help_text": "You will need to create a design file with information about the samples in your experiment before running the pipeline. Use this parameter to specify its location. It has to be a comma-separated file with 3 columns, and a header row.",
+                    "fa_icon": "fas fa-file-csv"
+                },
+                "input_type": {
+                    "type": "string",
+                    "description": "Type of input to be processed, (options: 'fastq' or 'guppy').",
+                    "enum": [
+                        "guppy",
+                        "fastq"
+                    ],
+                    "default": "fastq"
+                },
+                "run_dir": {
+                    "type": "string",
+                    "description": "Directory containing guppy output (only required if '--input guppy').",
+                    "format": "directory-path"
+                }
+            }
+        },
+        "output_options": {
+            "title": "Output options",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "outdir": {
+                    "type": "string",
+                    "format": "directory-path",
+                    "description": "The output directory where the results will be saved (use absolute paths on cloud infrastructure).",
+                    "fa_icon": "fas fa-folder-open",
+                    "default": "results"
+                }
+            }
+        },
+        "help_options": {
+            "title": "Help options",
+            "type": "object",
+            "fa_icon": "fas fa-file-import",
+            "help_text": "These options are common to all nf-core pipelines and allow you to customise some of the core preferences for how the pipeline runs.\n\nTypically these options would be set in a Nextflow config file loaded for all pipeline runs, such as `~/.nextflow/config`.",
+            "properties": {
+                "help": {
+                    "type": "boolean",
+                    "description": "Display help text.",
+                    "fa_icon": "fas fa-question-circle"
+                },
+                "validationShowHiddenParams": {
+                    "type": "boolean",
+                    "description": "Display all parameters."
+                },
+                "print_modules": {
+                    "type": "boolean",
+                    "description": "Print the full list of available modules."
+                }
+            }
+        },
+        "resources": {
+            "title": "Resources",
+            "type": "object",
+            "fa_icon": "fab fa-acquisitions-incorporated",
+            "description": "Set the top limit for requested resources for any single job.",
+            "help_text": "If you are running on a smaller system, a pipeline step requesting more resources than are available may cause the Nextflow to stop the run with an error. These options allow you to cap the maximum resources requested by any single job so that the pipeline will run on your system.\n\nNote that you can not _increase_ the resources requested by any job using these options. For that you will need your own configuration file. See [the nf-core website](https://nf-co.re/usage/configuration) for details.",
+            "properties": {
+                "max_cpus": {
+                    "type": "integer",
+                    "description": "Maximum number of CPUs that can be requested for any single job.",
+                    "default": 36,
+                    "fa_icon": "fas fa-microchip",
+                    "help_text": "Use to set an upper-limit for the CPU requirement for each process. Should be an integer e.g. `--max_cpus 1`"
+                },
+                "max_memory": {
+                    "type": "string",
+                    "description": "Maximum amount of memory that can be requested for any single job.",
+                    "default": "90.GB",
+                    "fa_icon": "fas fa-memory",
+                    "pattern": "^\\d+(\\.\\d+)?\\.?\\s*(K|M|G|T)?B$",
+                    "help_text": "Use to set an upper-limit for the memory requirement for each process. Should be a string in the format integer-unit e.g. `--max_memory '8.GB'`"
+                },
+                "max_time": {
+                    "type": "string",
+                    "description": "Maximum amount of time that can be requested for any single job.",
+                    "default": "240.h",
+                    "fa_icon": "far fa-clock",
+                    "pattern": "^(\\d+\\.?\\s*(s|m|h|d|day)\\s*)+$",
+                    "help_text": "Use to set an upper-limit for the time requirement for each process. Should be a string in the format integer-unit e.g. `--max_time '2.h'`"
+                }
+            }
+        },
+        "execution_options": {
+            "title": "Execution options",
+            "type": "object",
+            "description": "Skip specific workflows",
+            "default": "",
+            "properties": {
+                "skip_assembly": {
+                    "type": "boolean",
+                    "description": "Skip read assembly."
+                },
+                "skip_taxonomic_profiling": {
+                    "type": "boolean",
+                    "description": "Skip read-based taxonomic profiling."
+                },
+                "skip_bacterial_typing": {
+                    "type": "boolean",
+                    "description": "Skip metagenome assembled genome analyses."
+                }
+            }
+        },
+        "read_qc": {
+            "title": "READ_QC",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "FILTLONG.min_length": {
+                    "type": "number",
+                    "default": 650,
+                    "description": "Filtlong: Discard any read shorter than length (bp).",
+                    "hidden": true
+                },
+                "FILTLONG.keep_percent": {
+                    "type": "number",
+                    "default": 95,
+                    "description": "Filtlong: Percentage of dataset retained. By default removes the worst 5% of read bases.",
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 100
+                },
+                "SEQTK_FQCHK.endseq_len": {
+                    "type": "integer",
+                    "default": 300,
+                    "description": "Number of basepairs on either end of reads to plot for quality an adapter content quality control.",
+                    "hidden": true
+                }
+            }
+        },
+        "read_decontamination": {
+            "title": "READ_DECONTAMINATION",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "READ_DECONTAMINATION.host_assembly": {
+                    "type": "string",
+                    "description": "Path to host genome assembly.",
+                    "hidden": true,
+                    "format": "file-path"
+                },
+                "READ_DECONTAMINATION.host_krakendb": {
+                    "type": "string",
+                    "description": "Path to host specific Kraken2 database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                }
+            }
+        },
+        "taxonomic_profiling": {
+            "title": "TAXONOMIC_PROFILING",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "TAXONOMIC_PROFILING.krakendb": {
+                    "type": "string",
+                    "description": "Path to Kraken2 database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "TAXONOMIC_PROFILING.centrifugerdb": {
+                    "type": "string",
+                    "description": "Path to Centrifuger database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "TAXONOMIC_PROFILING.sylphdb": {
+                    "type": "string",
+                    "description": "Path to Sylph database.",
+                    "hidden": true,
+                    "pattern": "^\\S+\\.syldb$",
+                    "format": "file-path"
+                },
+                "TAXONOMIC_PROFILING.dbdir": {
+                    "type": "string",
+                    "description": "Path to directory containing: nodes.dmp, names.dmp and merged.dmp files.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "TAXONOMIC_PROFILING.target_species": {
+                    "type": "string",
+                    "description": "List of target pathogens.",
+                    "hidden": true,
+                    "format": "file-path"
+                },
+                "new_param_3": {
+                    "type": "string",
+                    "description": "GTDB metadata file (typically gtdb_r*_metadata.tsv.gz).",
+                    "hidden": true,
+                    "format": "file-path"
+                },
+                "PARSE_KRAKEN2HITS.min_target_reads": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "description": "Minimum number of reads required for a Kraken2 hit (processed with Bracken) to be reported.",
+                    "default": 1,
+                    "hidden": true
+                },
+                "PARSE_KRAKEN2HITS.min_target_fraction": {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1,
+                    "description": "Minimum proportion of reads required for a Kraken2 hit (processed with Bracken) to be reported.",
+                    "default": 0,
+                    "hidden": true
+                },
+                "PARSE_CENTRIFUGERHITS.min_target_reads": {
+                    "type": "integer",
+                    "description": "Minimum number of reads required for a Centrifuger hit (processed with Bracken) to be reported.",
+                    "default": 1,
+                    "hidden": true,
+                    "minimum": 1
+                },
+                "PARSE_CENTRIFUGERHITS.min_target_fraction": {
+                    "type": "number",
+                    "description": "Minimum proportion of reads required for a Centrifuger hit (processed with Bracken) to be reported.",
+                    "default": 0,
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "PARSE_SYLPHHITS.min_target_reads": {
+                    "type": "integer",
+                    "default": 1,
+                    "hidden": true,
+                    "description": "Minimum number of reads required for a Sylph hit to be reported.",
+                    "minimum": 1
+                },
+                "PARSE_SYLPHHITS.min_target_fraction": {
+                    "type": "number",
+                    "default": 0,
+                    "hidden": true,
+                    "description": "Minimum proportion of reads required for a Sylph hit to be reported.",
+                    "minimum": 0,
+                    "maximum": 1
+                }
+            }
+        },
+        "assembly": {
+            "title": "ASSEMBLY",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "FLYE.read_type": {
+                    "type": "string",
+                    "description": "Read type for Flye to process.",
+                    "default": "--nano-raw",
+                    "hidden": true,
+                    "enum": [
+                        "--nano-raw",
+                        "--nano-corr",
+                        "--nano-hq"
+                    ]
+                },
+                "ASSEMBLY.racon_rounds": {
+                    "type": "number",
+                    "default": 4,
+                    "description": "Number of rounds of metagenome assembly polishing to perform with Racon.",
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 4
+                },
+                "ASSEMBLY.medaka": {
+                    "type": "boolean",
+                    "hidden": true,
+                    "description": "Perform metagenome assembly polishing with Medaka."
+                }
+            }
+        },
+        "assign_bins": {
+            "title": "ASSIGN_BINS",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "SEMIBIN_SINGLEEASYBIN.environment": {
+                    "type": "string",
+                    "default": "human_gut",
+                    "description": "Prebuilt SemiBin2 model.",
+                    "hidden": true,
+                    "enum": [
+                        "human_gut",
+                        "dog_gut",
+                        "ocean",
+                        "soil",
+                        "cat_gut",
+                        "human_oral",
+                        "mouse_gut",
+                        "pig_gut",
+                        "built_environment",
+                        "wastewater",
+                        "chicken_caecum",
+                        "global"
+                    ]
+                },
+                "DASTOOL_DASTOOL.score_threshold": {
+                    "type": "number",
+                    "default": 0.5,
+                    "description": "Das Tool score threshold until selection algorithm will keep selecting bins.",
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 1
+                }
+            }
+        },
+        "contig_qc": {
+            "title": "CONTIG_QC",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "SKANI_SEARCH.db": {
+                    "type": "string",
+                    "description": "Skani database directory.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "GENOMAD_ENDTOEND.db": {
+                    "type": "string",
+                    "description": "geNomad database directory.",
+                    "hidden": true,
+                    "format": "directory-path"
+                }
+            }
+        },
+        "bin_qc": {
+            "title": "BIN_QC",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "GTDBTK_CLASSIFYWF.mash_db": {
+                    "type": "string",
+                    "description": "GTDB mash reference sketch database.",
+                    "hidden": true,
+                    "pattern": "^\\S+\\.msh$",
+                    "format": "file-path"
+                },
+                "GTDBTK_CLASSIFYWF.gtdb_db": {
+                    "type": "string",
+                    "description": "GTDB-Tk reference database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "CHECKM_LINEAGEWF.db": {
+                    "type": "string",
+                    "description": "CheckM reference database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "GTDBTK_CLASSIFYWF.min_perc_aa": {
+                    "type": "number",
+                    "default": 10,
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 100,
+                    "description": "Minimum percentage of amino acids that must be shared in the multiple sequence alignments."
+                },
+                "GTDBTK_CLASSIFYWF.min_af": {
+                    "type": "number",
+                    "description": "Minimum alignment fraction to assign genome to a species cluster.",
+                    "default": 0.65,
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "GTDBTK_CLASSIFYWF.pplacer_scratch": {
+                    "type": "boolean",
+                    "description": "Reduce pplacer memory usage by writing to disk (slower).",
+                    "hidden": true,
+                    "default": true
+                }
+            }
+        },
+        "bin_taxonomy": {
+            "title": "BIN_TAXONOMY",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "BIN_TAXONOMY.medaka_mag": {
+                    "type": "boolean",
+                    "description": "Polish individual metagenome assembled genomes with Medaka.",
+                    "hidden": true
+                },
+                "ASSIGN_TAXONOMY.ani_cutoff": {
+                    "type": "number",
+                    "description": "Minimum average nucleotide identity required to retain a match.",
+                    "default": 0.75,
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "ASSIGN_TAXONOMY.aln_frac": {
+                    "type": "number",
+                    "description": "Minimum alignment fraction required to retain a match.",
+                    "default": 0.75,
+                    "hidden": true,
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "ASSIGN_TAXONOMY.definitiontable": {
+                    "type": "string",
+                    "description": "Custom definition table to define targets and downstream parameters.",
+                    "hidden": true,
+                    "format": "file-path"
+                }
+            }
+        },
+        "prokarya_typing_amr_typing": {
+            "title": "PROKARYA_TYPING:AMR_TYPING",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "AMRFINDERPLUS_RUN.db": {
+                    "type": "string",
+                    "hidden": true,
+                    "format": "directory-path",
+                    "description": "AMRFinderPlus database."
+                },
+                "RESFINDER.db": {
+                    "type": "string",
+                    "description": "ResFinder database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "POINTFINDER.db": {
+                    "type": "string",
+                    "description": "PointFinder database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                }
+            }
+        },
+        "prokarya_typing_sequence_typing": {
+            "title": "PROKARYA_TYPING:SEQUENCE_TYPING",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "SEQUENCE_TYPING.cc_definitions": {
+                    "type": "string",
+                    "description": "Clonal complex definition file.",
+                    "hidden": true,
+                    "pattern": "^\\S+\\.json$",
+                    "format": "file-path"
+                },
+                "MLST.yersinia_blastdb": {
+                    "type": "string",
+                    "description": "Custom BLASTN database for Yersinia MLST.",
+                    "hidden": true,
+                    "format": "file-path"
+                },
+                "MLST.yersinia_datadir": {
+                    "type": "string",
+                    "description": "Custom database for Yersinia MLST.",
+                    "hidden": true,
+                    "format": "directory-path"
+                }
+            }
+        },
+        "prokarya_typing_targeted_typing": {
+            "title": "PROKARYA_TYPING:TARGETED_TYPING",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "VIRULENCEFINDER.db": {
+                    "type": "string",
+                    "description": "Virulencefinder database.",
+                    "hidden": true,
+                    "format": "directory-path"
+                },
+                "TARGETED_TYPING.genedbdir": {
+                    "type": "string",
+                    "description": "Directory of custom gene databases for Genefinder and/or BLASTN.",
+                    "hidden": true,
+                    "format": "directory-path"
+                }
+            }
+        },
+        "create_report": {
+            "title": "CREATE_REPORT",
+            "type": "object",
+            "description": "",
+            "default": "",
+            "properties": {
+                "CREATE_REPORT.amr_tool": {
+                    "type": "string",
+                    "description": "Display results for which AMR tool in the output summary.",
+                    "enum": [
+                        "abricate",
+                        "abritamr",
+                        "amrfinderplus",
+                        "resfinder",
+                        "rgi",
+                        "all"
+                    ],
+                    "hidden": true
+                },
+                "CREATE_REPORT.template": {
+                    "type": "string",
+                    "description": "Template HTML file for the summary report.",
+                    "hidden": true,
+                    "pattern": "^\\S+\\.html$",
+                    "format": "file-path"
+                }
+            }
+        }
+    },
+    "allOf": [
+        {
+            "$ref": "#/definitions/mandatory_options"
+        },
+        {
+            "$ref": "#/definitions/output_options"
+        },
+        {
+            "$ref": "#/definitions/help_options"
+        },
+        {
+            "$ref": "#/definitions/resources"
+        },
+        {
+            "$ref": "#/definitions/execution_options"
+        },
+        {
+            "$ref": "#/definitions/read_qc"
+        },
+        {
+            "$ref": "#/definitions/read_decontamination"
+        },
+        {
+            "$ref": "#/definitions/taxonomic_profiling"
+        },
+        {
+            "$ref": "#/definitions/assembly"
+        },
+        {
+            "$ref": "#/definitions/assign_bins"
+        },
+        {
+            "$ref": "#/definitions/contig_qc"
+        },
+        {
+            "$ref": "#/definitions/bin_qc"
+        },
+        {
+            "$ref": "#/definitions/bin_taxonomy"
+        },
+        {
+            "$ref": "#/definitions/prokarya_typing_amr_typing"
+        },
+        {
+            "$ref": "#/definitions/prokarya_typing_sequence_typing"
+        },
+        {
+            "$ref": "#/definitions/prokarya_typing_targeted_typing"
+        },
+        {
+            "$ref": "#/definitions/create_report"
+        }
+    ]
+}

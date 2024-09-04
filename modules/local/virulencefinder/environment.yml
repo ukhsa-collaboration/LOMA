@@ -1,0 +1,7 @@
+name: virulencefinder
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::virulencefinder=2.0.4

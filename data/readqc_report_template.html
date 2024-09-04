@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .header {
+            margin-bottom: 105px;
+            display: flex;
+            margin-left: 0px;
+            z-index: 1;
+       }
+        .title {
+            position: absolute;
+            left: 7;
+            height: 20%;
+            width: 70%;
+        }
+        .section {
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+        h1 {
+           font-size: 75px;
+           color: black;
+        }
+        h2 {
+           font-size: 25px;
+           color: #8B0000;
+        }
+        .header img {
+            height: 200px;
+            margin-left: auto;
+            margin-top: 0px;
+            align-self: flex-start;
+        }
+        .section-title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .data-table {
+             width: 100%;
+             border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            padding: 8px;
+            font-size: 18px;
+            text-align: left;
+       }
+        .data-table th {
+            font-weight: bold;
+        }
+        .data-table tr {
+            border-top: 1px solid #ddd;
+        }
+        .data-table tr:first-child {
+            border-top: none;
+        }
+        .data-table .align-right{
+             width: 65%;
+        }
+        .stats-header {
+            border-bottom: 2px solid #000;
+        }
+        .figure {
+             text-align: left;
+             margin: 20px 0;
+        }
+        .figure img {
+             max-width: 100%;
+             height: auto;
+        }
+        .figure-legend{
+             font-size: 18px;
+             margin-top: 8px;
+        }
+        .tr-spacer { height: 10px; } 
+        .disclaimer {
+           font-weight: bold;
+           font-size: 24px;
+           text-align: center;
+           margin-top: 20px;
+    </style>
+
+</head>
+<body>
+    <div class="header">
+    <div class="title">
+          <h1>Read Quality Control</h1>
+          <h2>&nbspNot a validated test. For research use only</h2></div>
+          <img src="data:image/png;base64,{{ logo }}" alt="logo">
+
+    </div>
+
+    <div class="section">
+     <details open>
+     <summary class="section-title">Sample Data </summary>
+        <table class="data-table">
+            <tr>
+                <th>Sample ID:</th>
+                <td class="align-right">{{ sample_id }}</td>
+            </tr>
+            <tr>
+                <th>Run ID:</th>
+                <td>{{ run_id }}</td>
+            </tr>
+            <tr>
+                <th>Sample Type:</th>
+                <td>{{ sample_type }}</td>
+            </tr>
+            <tr>
+                <th>Barcode:</th>
+                <td>{{ barcode }}</td>
+            </tr>
+        </table>
+    </details>
+    </div>
+
+
+    {% if readqc_summary %}
+    <div class="section">
+     <details open>
+     <summary class="section-title">Read Quality Control</summary>
+        <table class="data-table">
+            <tr class="stats-header">
+                <th></th>
+                <th>Pre Quality Control</th>
+                <th>Post Quality Control</th>
+                <th>Change (%)</th>
+           </tr>
+            {% for entry in readqc_summary %}
+            <tr>
+                <td><b>{{ entry.key }}<b></td>
+                <td>{{ entry.pre }}</td>
+                <td>{{ entry.post }}</td>
+                <td>{{ entry.change }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </details>
+    </div>
+    {% endif %}
+
+
+    {% if ns_raw_image_base64 %}
+    <div class="section">
+     <details open>
+     <summary class="section-title">Read Quality</summary>
+       <div class="figure">
+       <div class="image-section">
+         <img src="data:image/png;base64,{{ ns_raw_image_base64 }}" alt="plot image">
+       </div>
+       <figcaption class="figure-legend"> <b>Figure 1:</b> Bivariate plot comparing read length with average basecall Phred quality score and sequence reads either prior to quality control (left) or after quality control (right). </figcaption>
+       </div>
+     </details>
+    </div>
+    {% endif %}
+
+    {% if image_base64_Pre %}
+    <div class="section">
+     <details open>
+     <summary class="section-title">Read Nucleotide Composition</summary>
+       <div class="figure">
+       <div class="image-section">
+         <img src="data:image/png;base64,{{ image_base64_Pre }}" alt="plot image">
+       </div>
+       <div class="image-section">
+         <img src="data:image/png;base64,{{ image_base64_Post }}" alt="plot image2">
+       </div>
+       <figcaption class="figure-legend"> <b>Figure 2:</b> Nucleotide compositions (bars) and average Phred score (red lines) of reads before and after quality control. A). 3' pre-QC, B). 5' pre-QC C). 3' post-QC D). 5' post-QC.</figcaption> 
+     </div>
+     </details>
+    </div>
+    {% endif %}
+
+    <p class="disclaimer"> <font color="#8B0000">Not a validated test. For research use only</font></p>
+</body>
+</html>

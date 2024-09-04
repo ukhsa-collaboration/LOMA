@@ -1,0 +1,7 @@
+name: centrifuger_centrifuger
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::centrifuger=1.0.4

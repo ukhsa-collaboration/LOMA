@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .header {
+            margin-bottom: 105px;
+            display: flex;
+            margin-left: 0px;
+            z-index: 1;
+       }
+        .title {
+            position: absolute;
+            left: 7;
+            height: 20%;
+            width: 70%;
+        }
+        .section {
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+        h1 {
+           font-size: 75px;
+           color: black;
+        }
+        h2 {
+           font-size: 25px;
+           color: #8B0000;
+        }
+        .header img {
+            height: 200px;
+            margin-left: auto;
+            margin-top: 0px;
+            align-self: flex-start;
+        }
+        .section-title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .section-subtitle {
+            font-size: 25px;
+            margin-left: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .data-table {
+             width: 100%;
+             border-collapse: collapse;
+             margin-bottom: 60px;
+             margin-top: 20px;
+
+        }
+        .data-table th, .data-table td {
+            padding: 8px;
+            font-size: 18px;
+            text-align: left;
+       }
+        .data-table th {
+            font-weight: bold;
+        }
+        .data-table tr {
+            border-top: 1px solid #ddd;
+        }
+        .data-table tr:first-child {
+            border-top: none;
+        }
+        .data-table .align-right{
+             width: 65%;
+        }
+        .stats-header {
+            border-bottom: 2px solid #000;
+        }
+        .figure {
+             text-align: left;
+             margin: 20px 0;
+        }
+        .figure img {
+             max-width: 100%;
+             height: auto;
+        }
+        .figure-legend{
+             font-size: 18px;
+             margin-top: 8px;
+             margin-left: 13px;
+             margin-bottom: 60px;
+        }
+        .plotly-plot {
+            margin: 20px 0;
+            width: 60%;
+        }
+        .tr-spacer { height: 10px; } 
+        .disclaimer {
+           font-weight: bold;
+           font-size: 24px;
+           text-align: center;
+           margin-top: 20px;
+    </style>
+
+</head>
+<body>
+    <div class="header">
+    <div class="title">
+          <h1>Binning Summary</h1>
+          <h2>&nbspNot a validated test. For research use only</h2></div>
+          <img src="data:image/png;base64,{{ logo }}" alt="logo">
+
+    </div>
+
+    <div class="section">
+     <details open>
+     <summary class="section-title">Sample Data </summary>
+        <table class="data-table">
+            <tr>
+                <th>Sample ID:</th>
+                <td class="align-right">{{ sample_id }}</td>
+            </tr>
+            <tr>
+                <th>Run ID:</th>
+                <td>{{ run_id }}</td>
+            </tr>
+            <tr>
+                <th>Sample Type:</th>
+                <td>{{ sample_type }}</td>
+            </tr>
+            <tr>
+                <th>Barcode:</th>
+                <td>{{ barcode }}</td>
+            </tr>
+        </table>
+    </details>
+    </div>
+
+   {% if bin_dist %}
+   <div class="section">
+     <details open>
+     <summary class="section-title">Bin Results </summary>
+     <details open>
+     <summary class="section-subtitle">Bin Summary</summary>
+      <div class="plotly-plot>
+       {{ bin_dist | safe }}
+       <figcaption class="figure-legend"> <b>Figure 1</b>: Summary of assembled contigs. Contigs are depicted as circles, with diameters scaled proportional to sequence length and colored by assigned bin. Circles are positioned on the X-axis based on their GC proportion and on the Y-axis based on mean coverage. Contigs not assigned a bin are shown in grey. Hover text describes the characteristics of each contig (top half) and characteristics of each bin (bottom half) where applicable.</b></figcaption>
+      </details>
+      {% endif %}
+
+     <details open>
+     <summary class="section-subtitle">Binning Statistics</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>GC (%)</th>
+                <th>Assembly length (bp)</th>
+                <th>Scaffolds (count)</th>
+                <th>Scaffold N50 (bp)</th>
+                <th>Gaps (count)</th>
+                <th>CheckM Completeness (Contamination) (%)</th>
+                <th>Bin Quality</th>
+           </tr>
+            {% for entry in binning_merged_data %}
+            <tr>
+                <td>{{ entry.Bin }}</td>
+                <td><em>{{ entry.Species2 }}</em> ({{entry.rank}})</td>
+                <td>{{ entry.GC_perc }}</td>
+                <td>{{ entry.assembly_length_bp }}</td>
+                <td>{{ entry.scaffold_count }}</td>
+                <td>{{ entry.scaffold_N50_bp }}</td>
+                <td>{{ entry.gaps_count }}</td>
+                <td>{{ entry.Completeness }} ({{entry.Contamination}})</td>
+                <td>{{ entry.bin_qual }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </details>
+
+     <details open>
+     <summary class="section-subtitle">Bin Quality Control</summary>
+       <div class="figure">
+       <div class="image-section">
+         <img src="data:image/png;base64,{{ image_base64 }}" alt="plot image">
+       </div>
+       <figcaption class="figure-legend"> <b>Figure 3:</b> Metagenomic bin summary metrics. Left: CheckM completeness and contamination for each assigned bin (represented as points), colored by assigned quality, based on completeness and contamination scores (High quality: ≥90% completeness & ≤5% contamination; Medium quality: ≥70% completeness & ≤10% contamination; Partial assembly: ≥50% completeness & ≤10% contamination; QC fail: all other bins). Top right: Count of each bin assigned to each quality threshold. Bottom right: Bin assembly quality metrics.</figcaption>
+     </div>
+     </details>
+     </details>
+    </div>
+    </div>
+
+   <div class="section">
+     <details open>
+     <summary class="section-title">Contig Statistics </summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Contig name</th>
+                <th>Length (bp)</th>
+                <th>GC (%)</th>
+                <th>Gaps (count)</th>
+                <th>Coverage (%)</th>
+                <th>Mean read depth</th>
+                <th>Mean mapping quality</th>
+                <th>Taxonomic classification</th>
+           </tr>
+            {% for entry in  outcont_tab2_data %}
+            <tr>
+                <td>{{ entry.name_y }}</td>
+                <td>{{ entry.len }}</td>
+                <td>{{ entry.GC }}</td>
+                <td>{{ entry.N_count }}</td>
+                <td>{{ entry.coverage }}</td>
+                <td>{{ entry.meandepth }}</td>
+                <td>{{ entry.meanmapq }}</td>
+                <td><em>{{ entry.contig_species3 }}</em> ({{entry.contig_rank2 }})</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </details>
+
+    <p class="disclaimer"> <font color="#8B0000">Not a validated test. For research use only</font></p>
+</body>
+</html>

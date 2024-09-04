@@ -1,0 +1,11 @@
+name: metadecoder
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bioconda::samtools=1.20
+  - pip
+  - pip:
+      - setuptools
+      - wheel
+      - https://github.com/liu-congcong/MetaDecoder/releases/download/v1.0.18/metadecoder-1.0.18-py3-none-any.whl

@@ -1,0 +1,8 @@
+name: filter_contigs
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::samtools
+  - bioconda::htslib

@@ -1,0 +1,7 @@
+name: krocus
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::krocus=1.0.3

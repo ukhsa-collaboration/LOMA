@@ -1,0 +1,8 @@
+name: samtools_coverage
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::samtools
+  - bioconda::htslib

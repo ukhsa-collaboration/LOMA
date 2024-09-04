@@ -1,0 +1,7 @@
+name: fetch_unbinned
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::seqkit=2.8.2

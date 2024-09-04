@@ -1,0 +1,8 @@
+name: filter_mapped
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::samtools
+  - bioconda::htslib

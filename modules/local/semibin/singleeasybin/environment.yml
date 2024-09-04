@@ -1,0 +1,7 @@
+name: semibin_singleeasybin
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - bioconda::semibin=2.1.0
