@@ -110,8 +110,16 @@ Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
 
 ### Optional parameters
 
-Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
+A full list of optional parameters can be found on the wiki LOMA can be found on the **[`wiki`]()**.
 
+Major optional parameters can be shown with:
+```
+./run_loma -h
+```
+The full list of parameters can be shown with:
+```
+./run_loma --validationShowHiddenParams
+```
 
 
 # Output  <a name="output"></a>
