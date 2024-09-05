@@ -110,7 +110,7 @@ Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
 
 ### Optional parameters
 
-A full list of optional parameters can be found on the wiki LOMA can be found on the **[`wiki`]()**.
+A full list of optional parameters for LOMA can be found on the **[`wiki`]()**.
 
 Major optional parameters can be shown with:
 ```
