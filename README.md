@@ -201,8 +201,7 @@ Further tips for optimization can be found on the **[`wiki`]()**.
 # Troubleshooting and errors  <a name="troubleshoot"></a>
 
 ### How to identify issues
-
-
+Input errors, for example missing FASTQ files, or incorrectly formatted input files, should get flagged at the start of the pipeline and return an error identifying the problem.
 
 ### Possible errors
 Certain Nanopore read sets base called with Dorado have caused problems with Porechop, where reads split on internal adapters are not renamed correctly, leading to duplicate read names. This can be fixed by discarding reads with internal adapters. By including the following parameter in your command. 
