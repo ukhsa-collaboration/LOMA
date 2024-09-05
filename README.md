@@ -134,7 +134,6 @@ Detailed descriptions of the output folder structure and summary reportscan be f
 
 A series of HTML summary reports can be found in the 'summary' directory, these cover the major areas of interest when sequencing metagenomic samples and should assist in assessing saequencing data quality, sample composition and perform various types of *in silico* phenotyping.
 
-
 #### **<SAMPLE_ID>.<RUN_ID>.summary_report.html** 
 - Simiplified summary detailing all major metrics/results of interest, for an overall sample summary.
 
@@ -149,7 +148,6 @@ A series of HTML summary reports can be found in the 'summary' directory, these 
 
 #### **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html**
 - Summary of binning results.
-
 
 # Tips for improving speed and efficiency  <a name="tips"></a>
 
@@ -212,7 +210,6 @@ Skip geNomad neural network-based classification:
 ```
 
 Further tips for optimization can be found on the **[`wiki`]()**.
-
 
 # Troubleshooting and errors  <a name="troubleshoot"></a>
 
