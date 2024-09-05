@@ -55,7 +55,7 @@ The pipeline will perform the following steps:
 # Installation <a name="install"></a>
 LOMA has two dependencies:
 
-- A container runtime, both Apptainer and Singularity are supported.
+- A container runtime, currently only Singularity is supported.
 - Nextflow.
 
 Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files. 
