@@ -178,7 +178,7 @@ Assembly error correction is a time consuming step. To save time you can reduce 
 ```
 --ASSEMBLY.racon_rounds 1
 ```
-Medaka polishing is very slow and is disabled by default it can be enabled by specifying: 
+Medaka polishing is very slow and is disabled by default, but it can be enabled by specifying: 
 ```
 --ASSEMBLY.medaka
 ```
