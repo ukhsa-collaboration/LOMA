@@ -147,7 +147,7 @@ When specified, the following parameters will skip substantial sections of the p
   --skip_prokarya_typing                          Skip metagenome assembled genome analyses.
 ```
 
-### Skipping Read-based taxonomic annotation
+### Skipping read-based taxonomic annotation
 
 Removing the paths to any/all of the taxonomic databases in the [`conf/params.config`](https://github.com/ukhsa-collaboration/LOMA/blob/main/conf/params.config), will skip the associated step reducing the overall runtime:
 ```
