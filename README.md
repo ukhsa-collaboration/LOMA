@@ -71,7 +71,17 @@ LOMA has two dependencies:
 
 Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files. 
 
+The first time LOMA runs a process it will download software containers for the required stage, across all stages this will required XX GB of storage space. Prior to running the pipeline the user will need to specify the directory these will be stored in with the following command:
+```
+export NXF_SINGULARITY_CACHEDIR=/FULL/PATH/TO/CONTAINER/DIRECTORY
+```
+For ease of use I would suggest adding the export command to your ~/.bashrc or ~/.bash_profile file. 
+
 Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`]()**.
+
+### Storage requirements
+LOMA can run on a small number of databases, although this is not recommended as processes will be skipped. 
+
 
 # Running  <a name="run"></a>
 
