@@ -9,7 +9,7 @@
 
 # Pre-release notes
 
-**Please note, this code is actively being updated to improve user experience and to account for diverse input types.**
+**Please note, this code is actively being updated to simplify the user experience and to account for diverse input types.**
 
 Updates:
 - Genefinder and BLAST functionality has temporarily been removed while the input data file format is changed.
