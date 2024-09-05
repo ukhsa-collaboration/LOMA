@@ -149,10 +149,11 @@ When specified, the following parameters will skip substantial sections of the p
 
 ### Skipping Read-based taxonomic annotation
 
+Removing the paths to any/all of the taxonomic databases in the [`conf/params.config`](https://github.com/ukhsa-collaboration/LOMA/blob/main/conf/params.config), will skip the associated step reducing the overall runtime:
 ```
-  TAXONOMIC_PROFILING.krakendb = "/data/databases/kraken2_databases/kraken2_standardPlusPF_57_100923/"
-  TAXONOMIC_PROFILING.centrifugerdb = "/data/databases/centrifuger/"
-  TAXONOMIC_PROFILING.sylphdb = "/data/databases/gtdb_tk_databases/sylph_db/gtdb-r220-c200-dbv1.syldb"
+  TAXONOMIC_PROFILING.krakendb = ""
+  TAXONOMIC_PROFILING.centrifugerdb = ""
+  TAXONOMIC_PROFILING.sylphdb = ""
 ```
 
 ### Skipping polishing
@@ -169,8 +170,54 @@ If you find the per-base accuracy of your MAGs are low, even after Racon polishi
 ```
 --BIN_TAXONOMY.medaka_mag
 ```
+### Adjust RAM/CPU usage
+
+Depending on your available computing resources, it may be necessary to change the preset resource usage defaults. The max RAM and CPU usage can be changed with command line arguements as follows:
+```
+--max_memory "80.GB"
+--max_memory 24
+```
+If you are finding that you are running out of memory, or if you have limited swap memory, it's possible to alter the preset resource usages for individual processes in [`conf/base.config`](https://github.com/ukhsa-collaboration/LOMA/blob/main/conf/base.config). By raising the RAM and CPU requirements for intensive processes to make the requirements >50% of the total CPU/RAM allocation, you can stop LOMA from running multiple intensive jobs simultaneously. 
+
+Specifically, in the section:
+```
+withLabel:process_high {
+   cpus   = { check_max( 22    * task.attempt, 'cpus'    ) }
+   memory = { check_max( 86.GB * task.attempt, 'memory'  ) }
+   time   = { check_max( 16.h  * task.attempt, 'time'    ) }
+}
+```
+
+### Other parameters
+
+Skip geNomad neural network-based classification:
+```
+--GENOMAD_ENDTOEND.args="--disable-nn-classification"
+```
 
 Further tips for optimization can be found on the **[`wiki`]()**.
 
 
 # Troubleshooting and errors  <a name="troubleshoot"></a>
+
+### How to identify issues
+
+
+
+### Possible errors
+Certain Nanopore read sets base called with Dorado have caused problems with Porechop, where reads split on internal adapters are not renamed correctly, leading to duplicate read names. This can be fixed by discarding reads with internal adapters. By including the following parameter in your command. 
+```
+--PORECHOP_PORECHOP.args="--discard_middle"
+```
+
+
+
+
+
+
+
+
+
+
+
+
