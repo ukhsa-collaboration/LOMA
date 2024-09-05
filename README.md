@@ -57,9 +57,9 @@ The pipeline will perform the following steps:
 **7). Bin quality control** - Assess the quality of MAGs and merge bin QC and contig QC results into summary reports.\
 **8). Typing** - Subset MAGs of interest (target species) and dependent on taxonomic classification pass them on to individual subworkflows (run per-MAG).\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8a). Bacteria** - Identification of genes of interest, multi-locus sequence type and screen for plasmids.\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8b). *Listeria monocytogenes*** - Perform *in silico* serogroup prediction.\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8c). *Salmonella*** - Perform *in silico* *Salmonella* serotyping, identify cgMLST alleles, AMR genes and  lineages (*S. Typhi* and *S. Paratyphi B* only).\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8d). *Escherichia coli* / *Shigella spp.*** - Identify pathotype, serotype, AMR genes and lineage (*S. sonnei*) of *Escherichia coli* / *Shigella spp.*\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8b). *Listeria monocytogenes*** - Perform *in silico* serogroup prediction of *L. monocytogenes*.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8c). *Salmonella*** - Perform *in silico* *Salmonella* serotyping, identify cgMLST alleles, AMR genes and  lineages.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**8d). *Escherichia coli* / *Shigella spp.*** - Identify pathotype, serotype, AMR genes and lineages of *Escherichia coli* / *Shigella spp.*\
 **9). Antimicrobial resistance** - Identify AMR genes (incl. point mutations), virulence/stress resistance genes and merge results into a summary report.
 
 # Installation <a name="install"></a>
