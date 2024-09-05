@@ -90,11 +90,11 @@ The input file (e.g. 'input.tsv') is a five column tab-separated file with the f
 RUN_ID  BARCODE_ID  SAMPLE_ID   SAMPLE_TYPE /FULL/PATH/TO/FASTQ_FILE
 ```
 
-- RUN_ID:                       Run identifier, will determine the highest level directory name in the results directory
-- BARCODE_ID:                   Sample barcode 
-- SAMPLE_ID:                    Sample identifier, will determine the subdirectory where results are stored per-sample
-- SAMPLE_TYPE:                  Sample description, will be added to the reports, but doesn't change how the sample is processed. 
-- /FULL/PATH/TO/FASTQ_FILE:     Location of input FASTQ files.
+- **RUN_ID**:                       Run identifier, will determine the highest level directory name in the results directory
+- **BARCODE_ID**:                   Sample barcode 
+- **SAMPLE_ID**:                    Sample identifier, will determine the subdirectory where results are stored per-sample
+- **SAMPLE_TYPE**:                  Sample description, will be added to the reports, but doesn't change how the sample is processed. 
+- **/FULL/PATH/TO/FASTQ_FILE**:     Location of input FASTQ files.
 
 Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's (either is fine though). If any of the columns contain a period ('.'), they'll be automatically replaced with an underscore ('_') in the output. Sample barcode and sample type can be any string, it doesn't impact the analyses. 
 
@@ -105,7 +105,6 @@ RUN01	RB02	SAMPLE_2	BLOOD	/data/reads/SAMPLE_2.BLOOD.fq.gz
 RUN02	RB01	SAMPLE_3	SALIVA	/data/reads/SAMPLE_3.NASOPHARYNGEAL.fq.gz
 RUN03	XBD     SAMPLE_1	SKIN	/data/reads/SAMPLE_3.SKIN.fq.gz
 ```
-Further examples can be found [`here`](). 
 
 Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
 
@@ -121,7 +120,6 @@ The full list of parameters can be shown with:
 ```
 ./run_loma --validationShowHiddenParams
 ```
-
 
 # Output  <a name="output"></a>
 
