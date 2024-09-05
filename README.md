@@ -7,6 +7,16 @@
 [![Nextflow](https://img.shields.io/badge/nextflow%20DSL2-%E2%89%A523.04.4-23aa62.svg?labelColor=000000)](https://www.nextflow.io/)
 [![run with singularity](https://img.shields.io/badge/run%20with-singularity-1d355c.svg?labelColor=000000)](https://sylabs.io/docs/)
 
+# Pre-release notes
+
+**Please note, this code is actively being updated to improve user experience and to account for diverse input types.**
+
+Updates:
+- Genefinder and BLAST functionality has temporarily been removed while the input data file format is changed.
+- Docker and Apptainer will be supported but have not been fully tested on our systems.
+- Input file formats will be switched to CSV format with headers required, for consistency with the short-read pipeline.
+- A wiki will be added shortly after this repo becomes public. 
+
 # Table of contents 
 * [Introduction](#Introduction)
 * [Summary](#summary)
