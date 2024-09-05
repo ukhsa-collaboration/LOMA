@@ -85,7 +85,7 @@ RUN_ID  BARCODE_ID  SAMPLE_ID   SAMPLE_TYPE /FULL/PATH/TO/FASTQ_FILE
 - SAMPLE_TYPE:                  Sample description, will be added to the reports, but doesn't change how the sample is processed. 
 - /FULL/PATH/TO/FASTQ_FILE:     Location of input FASTQ files.
 
-Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's (either is fine though). If any of the columns contain a period ('.'), they'll be automatically replaced with an underscore ('_') in the output. 
+Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's (either is fine though). If any of the columns contain a period ('.'), they'll be automatically replaced with an underscore ('_') in the output. Sample barcode and sample type can be any string, it doesn't impact the analyses. 
 
 Example input file:
 ```
@@ -93,7 +93,6 @@ RUN01	RB01	SAMPLE_1	BLOOD	SAMPLE_1.BLOOD.fq.gz
 RUN01	RB02	SAMPLE_2	BLOOD	SAMPLE_2.BLOOD.fq.gz
 RUN02	RB01	SAMPLE_3	SALIVA	SAMPLE_3.NASOPHARYNGEAL.fq.gz
 RUN03	XBD     SAMPLE_1	SKIN	SAMPLE_3.SKIN.fq.gz
-
 ```
 Further examples can be found [`here`](). 
 
