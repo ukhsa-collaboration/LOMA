@@ -90,11 +90,11 @@ The input file (e.g. 'input.tsv') is a five column tab-separated file with the f
 RUN_ID  BARCODE_ID  SAMPLE_ID   SAMPLE_TYPE /FULL/PATH/TO/FASTQ_FILE
 ```
 
-- **RUN_ID**:                       Run identifier, will determine the highest level directory name in the results directory
-- **BARCODE_ID**:                   Sample barcode 
-- **SAMPLE_ID**:                    Sample identifier, will determine the subdirectory where results are stored per-sample
-- **SAMPLE_TYPE**:                  Sample description, will be added to the reports, but doesn't change how the sample is processed. 
-- **/FULL/PATH/TO/FASTQ_FILE**:     Location of input FASTQ files.
+- _RUN_ID_:                       Run identifier, will determine the highest level directory name in the results directory
+- _BARCODE_ID_:                   Sample barcode 
+- _SAMPLE_ID_:                    Sample identifier, will determine the subdirectory where results are stored per-sample
+- _SAMPLE_TYPE_:                  Sample description, will be added to the reports, but doesn't change how the sample is processed. 
+- _/FULL/PATH/TO/FASTQ_FILE_:     Location of input FASTQ files.
 
 Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's (either is fine though). If any of the columns contain a period ('.'), they'll be automatically replaced with an underscore ('_') in the output. Sample barcode and sample type can be any string, it doesn't impact the analyses. 
 
