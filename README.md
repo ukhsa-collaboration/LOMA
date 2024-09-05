@@ -58,7 +58,7 @@ LOMA has two dependencies:
 - A container runtime, both Apptainer and Singularity are supported.
 - Nextflow.
 
-Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a [`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py) is provided which will download any requested databases and update the relevant config files. 
+Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files. 
 
 Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`]()**.
 
@@ -101,10 +101,6 @@ Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
 
 ### Optional parameters
 
-
-
-
-
 Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
 
 
@@ -138,6 +134,7 @@ A series of HTML summary reports can be found in the 'summary' directory, these 
 #### **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html**
 - Summary of binning results.
 
+
 # Tips for improving speed and efficiency  <a name="tips"></a>
 
 ### Skipping analysis steps
@@ -148,18 +145,15 @@ When specified, the following parameters will skip substantial sections of the p
   --skip_assembly                                 Skip read assembly.
   --skip_taxonomic_profiling                      Skip read-based taxonomic profiling.
   --skip_prokarya_typing                          Skip metagenome assembled genome analyses.
-```  
+```
 
 ### Skipping Read-based taxonomic annotation
-
 
 ```
   TAXONOMIC_PROFILING.krakendb = "/data/databases/kraken2_databases/kraken2_standardPlusPF_57_100923/"
   TAXONOMIC_PROFILING.centrifugerdb = "/data/databases/centrifuger/"
   TAXONOMIC_PROFILING.sylphdb = "/data/databases/gtdb_tk_databases/sylph_db/gtdb-r220-c200-dbv1.syldb"
 ```
-
-
 
 ### Skipping polishing
 
