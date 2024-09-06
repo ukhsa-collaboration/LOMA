@@ -186,11 +186,11 @@ Assembly error correction is a very time consuming step. To save time you can re
 ```
 If you find the per-base accuracy of your MAGs are low, even after polishing with Racon. You can enable Medaka polishing (very slow so disabled by default):
 ```
---ASSEMBLY.medaka
+--ASSEMBLY.medaka                                   Perform metagenome assembly polishing with Medaka.
 ```
 However, a quicker aproach is to only polish the MAGs of interest. This can be done by specifying: 
 ```
---BIN_TAXONOMY.medaka_mag
+--BIN_TAXONOMY.medaka_mag                           Polish individual metagenome assembled genomes with Medaka.
 ```
 ### Adjust RAM/CPU usage
 
