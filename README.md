@@ -176,13 +176,11 @@ LOMA outputs can be grouped into two major categories:
 ### Skipping analysis steps
 
 When specified, the following parameters will skip substantial sections of the pipeline, saving resources if the results are not of interest:
-
 ```
   --skip_assembly                                 Skip read assembly.
   --skip_taxonomic_profiling                      Skip read-based taxonomic profiling.
   --skip_prokarya_typing                          Skip metagenome assembled genome analyses.
 ```
-
 ### Skipping read-based taxonomic annotation
 
 Removing the paths to any/all of the taxonomic databases in the [`conf/params.config`](https://github.com/ukhsa-collaboration/LOMA/blob/main/conf/params.config), will skip the associated step reducing the overall runtime:
@@ -226,7 +224,7 @@ withLabel:process_high {
 
 ### Other parameters
 
-Skip geNomad neural network-based classification:
+Skip geNomad neural network-based classification, this will reduce runtime at the cost of accuracy:
 ```
 --GENOMAD_ENDTOEND.args="--disable-nn-classification"
 ```
@@ -237,6 +235,8 @@ Further tips for optimization can be found on the **[`wiki`]()**.
 
 ### How to identify issues
 Input errors, for example missing FASTQ files, or incorrectly formatted input files, should get flagged at the start of the pipeline and return an error identifying the problem.
+
+Errors in individual process will be flagged with an error by Nextflow.
 
 ### Possible errors
 Certain Nanopore read sets base called with Dorado have caused errors with Porechop - reads split on internal adapters are not renamed correctly, leading to duplicate read names. This can be fixed by discarding reads with internal adapters, by including the following parameter in your command. 
