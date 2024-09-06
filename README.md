@@ -142,7 +142,7 @@ Detailed descriptions of the output folder structure and summary reportscan be f
 
 A series of HTML summary reports can be found in the 'summary' directory, these cover the major areas of interest when sequencing metagenomic samples and should assist in assessing saequencing data quality, sample composition and perform various types of *in silico* phenotyping.
 
-Example reports Nanopore sequencing of the ZymoBIOMICS HMW DNA Standard (ERR7287988) can be found [`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/). 
+Example reports Nanopore sequencing of the ZymoBIOMICS HMW DNA Standard (ERR7287988) can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**. 
 
 #### **<SAMPLE_ID>.<RUN_ID>.summary_report.html** 
 - Simiplified summary detailing all major metrics/results of interest, for an overall sample summary.
