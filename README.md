@@ -182,22 +182,22 @@ Excluding taxonomic databases will skip the associated step, reducing overall ru
 
 Assembly error correction is a very time consuming step. To save time you can reduce the number of rounds of Racon polishing:
 ```
-  --ASSEMBLY.racon_rounds 1                      Runs 1 round of Racon polishing (default:4, range: 0-4)
+  --ASSEMBLY.racon_rounds 1                       Runs 1 round of Racon polishing (default:4, range: 0-4)
 ```
 If you find the per-base accuracy of your MAGs are low, even after polishing with Racon. You can enable Medaka polishing (very slow, so disabled by default):
 ```
-  --ASSEMBLY.medaka                              Perform metagenome assembly polishing with Medaka.
+  --ASSEMBLY.medaka                               Perform metagenome assembly polishing with Medaka.
 ```
 However, a quicker approach is to only polish the MAGs of interest. This can be done by specifying: 
 ```
-  --BIN_TAXONOMY.medaka_mag                      Polish individual metagenome assembled genomes with Medaka.
+  --BIN_TAXONOMY.medaka_mag                       Polish individual metagenome assembled genomes with Medaka.
 ```
 ### Adjust RAM/CPU usage
 
 Depending on your available computing resources, it may be necessary to change the preset resource usage defaults. The max RAM and CPU usage can be changed with command line arguements as follows:
 ```
-  --max_cpus 24                                       Maximum number of CPUs that can be requested for any single job. [default: 36]
-  --max_memory "80.GB"                                Maximum amount of memory that can be requested for any single job. [default: 90.GB]
+  --max_cpus 24                                   Maximum number of CPUs that can be requested for any single job. [default: 36]
+  --max_memory "80.GB"                            Maximum amount of memory that can be requested for any single job. [default: 90.GB]
 ```
 If you are finding that you are running out of memory, or if you have limited swap memory, it's possible to alter the preset resource usages for individual processes in [`conf/base.config`](https://github.com/ukhsa-collaboration/LOMA/blob/main/conf/base.config). By raising the RAM and CPU requirements for intensive processes to make the requirements >50% of the total CPU/RAM allocation, you can stop LOMA from running multiple intensive jobs simultaneously. 
 
