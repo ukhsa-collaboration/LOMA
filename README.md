@@ -163,7 +163,7 @@ LOMA outputs can be grouped into two major categories:
 
 # Tips for improving speed and efficiency  <a name="tips"></a>
 
-### Skipping analysis steps
+### Skipping major analysis steps
 
 When specified, the following parameters will skip substantial sections of the pipeline, saving resources if the results are not of interest:
 ```
@@ -172,25 +172,23 @@ When specified, the following parameters will skip substantial sections of the p
   --skip_prokarya_typing                          Skip metagenome assembled genome analyses.
 ```
 ### Skipping read-based taxonomic annotation
-
-Removing the paths to any/all of the taxonomic databases in the [`conf/params.config`](https://github.com/ukhsa-collaboration/LOMA/blob/main/conf/params.config), will skip the associated step reducing the overall runtime:
+Excluding taxonomic databases will skip the associated step, reducing overall runtime. 
 ```
-  TAXONOMIC_PROFILING.krakendb = ""
-  TAXONOMIC_PROFILING.centrifugerdb = ""
-  TAXONOMIC_PROFILING.sylphdb = ""
+  --TAXONOMIC_PROFILING.krakendb=""               Skip Kraken2 taxonomic profiling
+  --TAXONOMIC_PROFILING.centrifugerdb=""          Skip Centrifuger taxonomic profiling
+  --TAXONOMIC_PROFILING.sylphdb=""                Skip Sylph taxonomic profiling
 ```
-
 ### Skipping polishing
 
-Assembly error correction is a time consuming step. To save time you can reduce the number of rounds of Racon polishing (default: 4, range: 0-4), e.g.:
+Assembly error correction is a very time consuming step. To save time you can reduce the number of rounds of Racon polishing (default: 4, range: 0-4), e.g.:
 ```
---ASSEMBLY.racon_rounds 1
+  --ASSEMBLY.racon_rounds 1                         Runs 1 round of Racon polishing (default:4, range: 0-4)
 ```
-Medaka polishing is very slow and is disabled by default, but it can be enabled by specifying: 
+If you find the per-base accuracy of your MAGs are low, even after polishing with Racon. You can enable Medaka polishing (very slow so disabled by default):
 ```
 --ASSEMBLY.medaka
 ```
-If you find the per-base accuracy of your MAGs are low, even after Racon polishing but you want to skip running Medaka on the entire metagenomic assembly, a quicker approach is to polish only the MAGs of interest. This can be done by specifying:
+However, a quicker aproach is to only polish the MAGs of interest. This can be done by specifying: 
 ```
 --BIN_TAXONOMY.medaka_mag
 ```
