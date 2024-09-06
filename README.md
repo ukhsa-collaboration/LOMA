@@ -153,9 +153,8 @@ LOMA outputs can be grouped into two major categories:
 
 ### HTML reports
 
-Five HTML reports can be found in the output 'summary' directory, these cover the major areas of interest when sequencing metagenomic samples and should assist in assessing saequencing data quality, sample composition and perform various types of *in silico* phenotyping.
-
-Example reports Nanopore sequencing of the ZymoBIOMICS HMW DNA Standard (ERR7287988) can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**. 
+- Five HTML reports can be found in the output 'summary' directory, covering major analysis areas, along with an overall summary report.
+- Example reports using sequence data for the ZymoBIOMICS HMW DNA Standard (ERR7287988), can be found *[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
 
 #### **<SAMPLE_ID>.<RUN_ID>.summary_report.html** 
 - Simiplified summary detailing all major metrics/results of interest, for an overall sample summary.
