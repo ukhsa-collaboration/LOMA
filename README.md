@@ -53,7 +53,7 @@ The pipeline will perform the following steps:
 **2). Read-based taxonomic annotation** - Read-based taxonomic classification, standardization and summary reporting.\
 **3). Host read removal** - Identify and remove host-contaminant reads followed by merging of quality control results into summary reports.\
 **4). Assembly** - Assembly of reads into metagenome and polishing (contig error correction).\
-**5). Contig analysis** - Per-contig identification of closest taxonomic hits, identification of mobile genetic elements and calculation of contig summary statistics.\
+**5). Contig analysis** - Per-contig identification of closest taxonomic hits, mobile genetic elements and contig summary statistics.\
 **6). Assembly binning** - Classify and bin contigs into individual metagenome assembled genomes (MAGs).\
 **7). Bin quality control** - Assess the quality of MAGs and merge bin QC and contig QC results into summary reports.\
 **8). Typing** - Subset MAGs (target species) and pass them on to individual subworkflows (run per-MAG).\
