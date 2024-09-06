@@ -1,0 +1,3695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .header {
+            margin-bottom: 105px;
+            display: flex;
+            margin-left: 0px;
+            z-index: 1;
+       }
+        .title {
+            position: absolute;
+            left: 7;
+            height: 20%;
+            width: 70%;
+        }
+        .section {
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+        h1 {
+           font-size: 75px;
+           color: black;
+        }
+        h2 {
+           font-size: 25px;
+           color: #8B0000;
+        }
+        .header img {
+            height: 200px;
+            margin-left: auto;
+            margin-top: 0px;
+            align-self: flex-start;
+        }
+        .section-title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .section-subtitle {
+            font-size: 25px;
+            margin-left: 13px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .data-table {
+             width: 100%;
+             border-collapse: collapse;
+             margin-bottom: 60px;
+             margin-top: 20px;
+
+        }
+        .data-table th, .data-table td {
+            padding: 8px;
+            font-size: 18px;
+            text-align: left;
+       }
+        .data-table th {
+            font-weight: bold;
+        }
+        .data-table tr {
+            border-top: 1px solid #ddd;
+        }
+        .data-table tr:first-child {
+            border-top: none;
+        }
+        .data-table .align-right{
+             width: 65%;
+        }
+        .stats-header {
+            border-bottom: 2px solid #000;
+        }
+        .figure {
+             text-align: left;
+             margin: 20px 0;
+        }
+        .figure img {
+             max-width: 100%;
+             height: auto;
+        }
+        .figure-legend{
+             font-size: 18px;
+             margin-top: 8px;
+             margin-left: 13px;
+             margin-bottom: 60px;
+        }
+        .plotly-plot {
+            margin: 20px 0;
+            width: 60%;
+        }
+        .tr-spacer { height: 10px; } 
+        .disclaimer {
+           font-weight: bold;
+           font-size: 24px;
+           text-align: center;
+           margin-top: 20px;
+    </style>
+
+</head>
+<body>
+    <div class="header">
+    <div class="title">
+          <h1>AMR Summary</h1>
+          <h2>&nbspNot a validated test. For research use only</h2></div>
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAagAAAGYCAYAAAAXyHZtAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAuGgAALhoBVVTkqQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAYYSURBVHic7dUxAQAgDMAwwL/nYYCfHomCft0zMwsAYs7vAAB4MSgAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgKQLi0YHLPwcIegAAAAASUVORK5CYII=" alt="logo">
+    </div>
+
+    <div class="section">
+     <details open>
+     <summary class="section-title">Sample Data </summary>
+        <table class="data-table">
+            <tr>
+                <th>Sample ID:</th>
+                <td class="align-right">SAMEA10644977</td>
+            </tr>
+            <tr>
+                <th>Run ID:</th>
+                <td>ERR7287988</td>
+            </tr>
+            <tr>
+                <th>Sample Type:</th>
+                <td>Metagenomic (ZymoBIOMICS HMW DNA Standard)</td>
+            </tr>
+            <tr>
+                <th>Barcode:</th>
+                <td>XBD</td>
+            </tr>
+        </table>
+    </details>
+    </div>
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">ABRicate</summary>
+      <details open>
+     <summary class="section-subtitle">Summary report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Genes identified</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+		<td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>fosX, lmo0919_fam</em></td>
+                <td>Fosfomycin, Lincosamide</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+		<td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>mphK, vmlR</em></td>
+                <td>Macrolide, Lincosamide;Streptogramin;Tiamulin</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+		<td><em>Escherichia coli</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaEC</em></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+		<td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>aph(3')-IIb, blaOXA-486, blaPDC-55, catB7, crpP, fosA-354827590</em></td>
+                <td>Kanamycin, Beta-Lactam, Cephalosporin, Chloramphenicol, Fluoroquinolone, Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+		<td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>dfrE, lsa(A)</em></td>
+                <td>Trimethoprim, Lincosamide;Streptogramin</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+		<td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaI_of_Z, blaPC1, blaR1, fosB-Saur, tet(38)</em></td>
+                <td>Beta-Lactam, Fosfomycin, Tetracycline</td>
+            </tr>
+            
+        </table>
+    </details>
+     <details open>
+     <summary class="section-subtitle">Detailed report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Gene symbol</th>
+                <th>Gene name</th>
+                <th>Genetic variation type</th>
+                <th>Amino acid mutation</th>
+                <th>Resistance mechanism</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>fosX</em></td>
+                <td><em>fosfomycin resistance thiol transferase FosX</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>lmo0919_fam</em></td>
+                <td><em>lincomycin resistance ABC-F type ribosomal protection protein</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Lincosamide</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>mphK</em></td>
+                <td><em>macrolide 2'-phosphotransferase MphK</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Macrolide</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>vmlR</em></td>
+                <td><em>ABC-F type ribosomal protection protein VmlR</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Lincosamide;Streptogramin;Tiamulin</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaEC</em></td>
+                <td><em>BlaEC family class C beta-lactamase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>fosA-354827590</em></td>
+                <td><em>FosA family fosfomycin resistance glutathione transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>crpP</em></td>
+                <td><em>ciprofloxacin resistance protein CrpP</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fluoroquinolone</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>catB7</em></td>
+                <td><em>type B-4 chloramphenicol O-acetyltransferase CatB7</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Chloramphenicol</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaOXA-486</em></td>
+                <td><em>OXA-50 family oxacillin-hydrolyzing class D beta-lactamase OXA-486</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>aph(3')-IIb</em></td>
+                <td><em>aminoglycoside O-phosphotransferase APH(3')-IIb</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Kanamycin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaPDC-55</em></td>
+                <td><em>class C beta-lactamase PDC-55</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Cephalosporin</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>dfrE</em></td>
+                <td><em>trimethoprim-resistant dihydrofolate reductase DfrE</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Trimethoprim</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>lsa(A)</em></td>
+                <td><em>ABC-F type ribosomal protection protein Lsa(A)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Lincosamide;Streptogramin</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>fosB-Saur</em></td>
+                <td><em>FosB1/FosB3 family fosfomycin resistance bacillithiol transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaI_of_Z</em></td>
+                <td><em>penicillinase repressor BlaI</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaPC1</em></td>
+                <td><em>BlaZ family penicillin-hydrolyzing class A beta-lactamase PC1</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>blaR1</em></td>
+                <td><em>beta-lactam sensor/signal transducer BlaR1</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI (2024-Apr-30)</td>
+                <td>ABRicate (1.0.1)</td>
+                <td><em>tet(38)</em></td>
+                <td><em>tetracycline efflux MFS transporter Tet(38)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Tetracycline</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">AMRFinderPlus</summary>
+      <details open>
+     <summary class="section-subtitle">Summary report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Genes identified</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>fosX, vga(G)</em></td>
+                <td>Fosfomycin, Lincosamide</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>mphK</em></td>
+                <td>Macrolide</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>aph(3')-IIb, blaOXA-486, blaPDC-3, catB7, crpP, fosA, oprD</em></td>
+                <td>Aminoglycoside, Beta-Lactam, Phenicol, Fluoroquinolone, Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>lsa(A)</em></td>
+                <td>Lincosamide/Streptogramin</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>blaI, blaPC1, blaR1, fosB, tet(38)</em></td>
+                <td>Beta-Lactam, Fosfomycin, Tetracycline</td>
+            </tr>
+            
+        </table>
+    </details>
+     <details open>
+     <summary class="section-subtitle">Detailed report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Gene symbol</th>
+                <th>Gene name</th>
+                <th>Genetic variation type</th>
+                <th>Amino acid mutation</th>
+                <th>Resistance mechanism</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>fosX</em></td>
+                <td><em>fosfomycin resistance hydrolase FosX</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>vga(G)</em></td>
+                <td><em>ABC-F type ribosomal protection protein Vga(G)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Lincosamide</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>mphK</em></td>
+                <td><em>macrolide 2'-phosphotransferase MphK</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Macrolide</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>aph(3')-IIb</em></td>
+                <td><em>aminoglycoside O-phosphotransferase APH(3')-IIb</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Aminoglycoside</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>blaOXA-486</em></td>
+                <td><em>OXA-50 family oxacillin-hydrolyzing class D beta-lactamase OXA-486</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>blaPDC-3</em></td>
+                <td><em>extended-spectrum class C beta-lactamase PDC-3</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>catB7</em></td>
+                <td><em>type B-4 chloramphenicol O-acetyltransferase CatB7</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Phenicol</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>crpP</em></td>
+                <td><em>ICE-associated protein CrpP</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fluoroquinolone</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>fosA</em></td>
+                <td><em>FosA family fosfomycin resistance glutathione transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>oprD</em></td>
+                <td><em>Pseudomonas aeruginosa carbapenem resistant OprD</em></td>
+                <td>Protein variant</td>
+                <td>p.V359L</td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>lsa(A)</em></td>
+                <td><em>ABC-F type ribosomal protection protein Lsa(A)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Lincosamide/Streptogramin</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>blaI</em></td>
+                <td><em>penicillinase repressor BlaI</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>blaPC1</em></td>
+                <td><em>BlaZ family penicillin-hydrolyzing class A beta-lactamase PC1</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>blaR1</em></td>
+                <td><em>beta-lactam sensor/signal transducer BlaR1</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>fosB</em></td>
+                <td><em>FosB1/FosB3 family fosfomycin resistance bacillithiol transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>NCBI Reference Gene Database (2024-01-31.1)</td>
+                <td>AMRFinderPlus (3.12.8)</td>
+                <td><em>tet(38)</em></td>
+                <td><em>tetracycline efflux MFS transporter Tet(38)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Tetracycline</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">ResFinder</summary>
+      <details open>
+     <summary class="section-subtitle">Summary report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Genes identified</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>fosX</em></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>mph(K)</em></td>
+                <td>Spiramycin, Telithromycin</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>pointfinder (4.1.0)</td>
+                <td>PointFinder (4.1.0)</td>
+                <td><em>parC</em></td>
+                <td>Nalidixic Acid, Ciprofloxacin</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>aac(6')-Iaa</em></td>
+                <td>Amikacin, Tobramycin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>aph(3')-IIb, blaOXA-486, blaPAO, catB7, crpP, fosA, tmexD2</em></td>
+                <td>Unknown Aminoglycoside, Kanamycin, Neomycin, Paromomycin, Ribostamycin, Butiromycin, Gentamicin, Unknown Beta-Lactam, Amoxicillin, Ampicillin, Cefepime, Ceftazidime, Chloramphenicol, Ciprofloxacin, Fosfomycin, Doxycycline, Tetracycline, Minocycline, Tigecycline</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>lsa(A)</em></td>
+                <td>Lincomycin, Clindamycin, Dalfopristin, Pristinamycin Iia, Virginiamycin M</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>blaZ</em></td>
+                <td>Amoxicillin, Ampicillin, Penicillin, Piperacillin</td>
+            </tr>
+            
+        </table>
+    </details>
+     <details open>
+     <summary class="section-subtitle">Detailed report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Gene symbol</th>
+                <th>Gene name</th>
+                <th>Genetic variation type</th>
+                <th>Amino acid mutation</th>
+                <th>Resistance mechanism</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>fosX</em></td>
+                <td><em>fosX</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>mph(K)</em></td>
+                <td><em>mph(K)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Spiramycin, Telithromycin</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>aac(6')-Iaa</em></td>
+                <td><em>aac(6')-Iaa</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Amikacin, Tobramycin</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>pointfinder (4.1.0)</td>
+                <td>PointFinder (4.1.0)</td>
+                <td><em>parC</em></td>
+                <td><em>parC</em></td>
+                <td>Protein variant</td>
+                <td>p.T57S</td>
+                <td></td>
+                <td>Nalidixic Acid, Ciprofloxacin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>aph(3')-IIb</em></td>
+                <td><em>aph(3')-IIb</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Unknown Aminoglycoside, Kanamycin, Neomycin, Paromomycin, Ribostamycin, Butiromycin, Gentamicin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>blaOXA-486</em></td>
+                <td><em>blaOXA-486</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Unknown Beta-Lactam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>blaPAO</em></td>
+                <td><em>blaPAO</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Amoxicillin, Ampicillin, Cefepime, Ceftazidime</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>blaPAO</em></td>
+                <td><em>blaPAO</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Amoxicillin, Ampicillin, Cefepime, Ceftazidime</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>catB7</em></td>
+                <td><em>catB7</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Chloramphenicol</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>crpP</em></td>
+                <td><em>crpP</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Ciprofloxacin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>fosA</em></td>
+                <td><em>fosA</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>tmexD2</em></td>
+                <td><em>tmexD2</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Doxycycline, Tetracycline, Minocycline, Tigecycline</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>lsa(A)</em></td>
+                <td><em>lsa(A)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Lincomycin, Clindamycin, Dalfopristin, Pristinamycin Iia, Virginiamycin M</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>blaZ</em></td>
+                <td><em>blaZ</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td></td>
+                <td>Amoxicillin, Ampicillin, Penicillin, Piperacillin</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">RGI</summary>
+      <details open>
+     <summary class="section-subtitle">Summary report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Genes identified</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>FosX, Listeria monocytogenes mprF, lin, norB, vanT gene in vanG cluster, vanY gene in vanM cluster</em></td>
+                <td>Phosphonic Acid Antibiotic, Peptide Antibiotic, Lincosamide Antibiotic, Fluoroquinolone Antibiotic, Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Bacillus subtilis mprF, BcI, FosBx1, lmrB, mphK, qacG, qacJ, vanT gene in vanG cluster, vanW gene in vanI cluster, vanY gene in vanG cluster, vmlR, ykkC, ykkD</em></td>
+                <td>Peptide Antibiotic, Cephalosporin; Penem, Phosphonic Acid Antibiotic, Lincosamide Antibiotic, Macrolide Antibiotic, Disinfecting Agents And Antiseptics, Glycopeptide Antibiotic, Lincosamide Antibiotic; Streptogramin Antibiotic; Streptogramin B Antibiotic, Aminoglycoside Antibiotic; Tetracycline Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>AAC(6')-Iaa, ArnT, CRP, Escherichia coli AcrAB-TolC with AcrR mutation conferring resistance to ciprofloxacin, tetracycline, and ceftazidime, Escherichia coli AcrAB-TolC with MarR mutations conferring resistance to ciprofloxacin and tetracycline, Escherichia coli EF-Tu mutants conferring resistance to Pulvomycin, Escherichia coli GlpT with mutation conferring resistance to fosfomycin, Escherichia coli UhpT with mutation conferring resistance to fosfomycin, Escherichia coli acrA, Escherichia coli mdfA, Escherichia coli soxR with mutation conferring antibiotic resistance, Escherichia coli soxS with mutation conferring antibiotic resistance, Haemophilus influenzae PBP3 conferring resistance to beta-lactam antibiotics, Klebsiella pneumoniae KpnE, Klebsiella pneumoniae KpnF, MdtK, PmrF, acrB, acrD, adeF, bacA, baeR, cpxA, emrA, emrB, emrR, golS, kdpE, marA, mdsA, mdsC, mdtB, mdtC, mdtM, msbA, rsmA, sdiA, ugd, vanG</em></td>
+                <td>Aminoglycoside Antibiotic, Peptide Antibiotic, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam, Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Elfamycin Antibiotic, Phosphonic Acid Antibiotic, Tetracycline Antibiotic; Disinfecting Agents And Antiseptics, Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics, Cephalosporin; Cephamycin; Penam, Macrolide Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Tetracycline Antibiotic; Peptide Antibiotic; Rifamycin Antibiotic; Disinfecting Agents And Antiseptics, Fluoroquinolone Antibiotic, Fluoroquinolone Antibiotic; Tetracycline Antibiotic, Aminoglycoside Antibiotic; Aminocoumarin Antibiotic, Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Phenicol Antibiotic; Penem, Aminocoumarin Antibiotic, Fluoroquinolone Antibiotic; Lincosamide Antibiotic; Nucleoside Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Nitroimidazole Antibiotic, Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic, Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>AcrE, AcrF, AcrS, ArnT, CRP, Escherichia coli AcrAB-TolC with AcrR mutation conferring resistance to ciprofloxacin, tetracycline, and ceftazidime, Escherichia coli AcrAB-TolC with MarR mutations conferring resistance to ciprofloxacin and tetracycline, Escherichia coli EF-Tu mutants conferring resistance to Pulvomycin, Escherichia coli acrA, Escherichia coli ampC beta-lactamase, Escherichia coli mdfA, Escherichia coli soxR with mutation conferring antibiotic resistance, Escherichia coli soxS with mutation conferring antibiotic resistance, H-NS, Haemophilus influenzae PBP3 conferring resistance to beta-lactam antibiotics, Klebsiella pneumoniae KpnE, Klebsiella pneumoniae KpnF, PmrF, TolC, YojI, acrB, acrD, bacA, baeR, baeS, cpxA, emrK, emrY, eptA, evgA, evgS, gadW, gadX, kdpE, leuO, marA, mdtA, mdtB, mdtC, mdtE, mdtF, mdtG, mdtH, mdtM, mdtN, mdtO, mdtP, msbA, rsmA, ugd, vanG</em></td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Cephamycin; Penam, Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Peptide Antibiotic, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam, Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Elfamycin Antibiotic, Cephalosporin; Penam, Tetracycline Antibiotic; Disinfecting Agents And Antiseptics, Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic, Cephalosporin; Cephamycin; Penam, Macrolide Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Tetracycline Antibiotic; Peptide Antibiotic; Rifamycin Antibiotic; Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics, Aminoglycoside Antibiotic, Aminoglycoside Antibiotic; Aminocoumarin Antibiotic, Tetracycline Antibiotic, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam; Tetracycline Antibiotic, Nucleoside Antibiotic; Disinfecting Agents And Antiseptics, Aminocoumarin Antibiotic, Phosphonic Acid Antibiotic, Fluoroquinolone Antibiotic, Fluoroquinolone Antibiotic; Lincosamide Antibiotic; Nucleoside Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Nitroimidazole Antibiotic, Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic, Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>APH(3')-IIb, ArnT, FosA, MexA, MexB, MexC, MexD, MexE, MexF, MexG, MexH, MexI, MexJ, MexK, MexL, MexR, MexS, MexT, MexV, MexW, MexZ, MuxA, MuxB, MuxC, OXA-486, OpmB, OpmD, OpmH, OprJ, OprM, OprN, PDC-3, ParR, ParS, PmpM, Pseudomonas aeruginosa CpxR, Pseudomonas aeruginosa catB7, Pseudomonas aeruginosa emrE, Pseudomonas aeruginosa soxR, TriA, TriB, TriC, Type B NfxB, YajC, adeF, arnA, basR, basS, bcr-1, cprR, cprS, mexM, mexN, mexP, mexQ, mexY, nalC, nalD, opmE, rsmA, vanH gene in vanB cluster, vanW gene in vanG cluster</em></td>
+                <td>Aminoglycoside Antibiotic, Peptide Antibiotic, Phosphonic Acid Antibiotic, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Penam; Tetracycline Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic, Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic, Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Monobactam; Tetracycline Antibiotic; Aminocoumarin Antibiotic, Carbapenem; Cephalosporin; Penam, Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics, Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics, Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Disinfecting Agents And Antiseptics, Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem, Phenicol Antibiotic, Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Oxazolidinone Antibiotic; Glycopeptide Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Fluoroquinolone Antibiotic; Tetracycline Antibiotic, Bicyclomycin-Like Antibiotic, Macrolide Antibiotic; Carbapenem; Tetracycline Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics, Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>dfrE, emeA, lsaA, vanT gene in vanG cluster, vanY gene in vanB cluster</em></td>
+                <td>Diaminopyrimidine Antibiotic, Disinfecting Agents And Antiseptics, Lincosamide Antibiotic; Streptogramin Antibiotic; Streptogramin A Antibiotic; Streptogramin B Antibiotic; Pleuromutilin Antibiotic, Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>PC1 beta-lactamase (blaZ), Staphylococcus aureus FosB, Staphylococcus aureus LmrS, Staphylococcus aureus norA, arlR, arlS, kdpD, mepA, mepR, mgrA, norC, sdrM, sepA, tet(38), vanT gene in vanG cluster</em></td>
+                <td>Penam, Phosphonic Acid Antibiotic, Macrolide Antibiotic; Aminoglycoside Antibiotic; Oxazolidinone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic, Fluoroquinolone Antibiotic, Fluoroquinolone Antibiotic; Disinfecting Agents And Antiseptics, Aminoglycoside Antibiotic, Glycylcycline; Tetracycline Antibiotic, Fluoroquinolone Antibiotic; Cephalosporin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Disinfecting Agents And Antiseptics, Disinfecting Agents And Antiseptics, Tetracycline Antibiotic, Glycopeptide Antibiotic</td>
+            </tr>
+            
+        </table>
+    </details>
+     <details open>
+     <summary class="section-subtitle">Detailed report</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Gene symbol</th>
+                <th>Gene name</th>
+                <th>Genetic variation type</th>
+                <th>Amino acid mutation</th>
+                <th>Resistance mechanism</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>FosX</em></td>
+                <td><em>fosfomycin thiol transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Phosphonic Acid Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Listeria monocytogenes mprF</em></td>
+                <td><em>defensin resistant mprF</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>lin</em></td>
+                <td><em>lincosamide nucleotidyltransferase (LNU)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Lincosamide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>norB</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanT gene in vanG cluster</em></td>
+                <td><em>glycopeptide resistance gene cluster; vanT</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanY gene in vanM cluster</em></td>
+                <td><em>vanY; glycopeptide resistance gene cluster</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ykkC</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic; Tetracycline Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vmlR</em></td>
+                <td><em>Miscellaneous ABC-F subfamily ATP-binding cassette ribosomal protection proteins</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target protection</td>
+                <td>Lincosamide Antibiotic; Streptogramin Antibiotic; Streptogramin B Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanY gene in vanG cluster</em></td>
+                <td><em>vanY; glycopeptide resistance gene cluster</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanW gene in vanI cluster</em></td>
+                <td><em>vanW; glycopeptide resistance gene cluster</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanT gene in vanG cluster</em></td>
+                <td><em>glycopeptide resistance gene cluster; vanT</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanT gene in vanG cluster</em></td>
+                <td><em>glycopeptide resistance gene cluster; vanT</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ykkD</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic; Tetracycline Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>qacG</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mphK</em></td>
+                <td><em>macrolide phosphotransferase (MPH)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Macrolide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>lmrB</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Lincosamide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>FosBx1</em></td>
+                <td><em>fosfomycin thiol transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Phosphonic Acid Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>BcI</em></td>
+                <td><em>class A Bacillus cereus Bc beta-lactamase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Cephalosporin; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Bacillus subtilis mprF</em></td>
+                <td><em>defensin resistant mprF</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>qacJ</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>cpxA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>emrA</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>emrB</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>emrR</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>golS</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>kdpE</em></td>
+                <td><em>kdpDE</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>marA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump; General Bacterial Porin with reduced permeability to beta-lactams</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux; reduced permeability to antibiotic</td>
+                <td>Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdsA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtM</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Lincosamide Antibiotic; Nucleoside Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>msbA</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Nitroimidazole Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>rsmA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>sdiA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ugd</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanG</em></td>
+                <td><em>glycopeptide resistance gene cluster; Van ligase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>bacA</em></td>
+                <td><em>undecaprenyl pyrophosphate related proteins</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdsC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>adeF</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>baeR</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>acrB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>acrD</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>AAC(6')-Iaa</em></td>
+                <td><em>AAC(6')</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ArnT</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>CRP</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli AcrAB-TolC with AcrR mutation conferring resistance to ciprofloxacin, tetracycline, and ceftazidime</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli EF-Tu mutants conferring resistance to Pulvomycin</em></td>
+                <td><em>elfamycin resistant EF-Tu</em></td>
+                <td>Protein variant</td>
+                <td>p.R234F</td>
+                <td>antibiotic target alteration</td>
+                <td>Elfamycin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli EF-Tu mutants conferring resistance to Pulvomycin</em></td>
+                <td><em>elfamycin resistant EF-Tu</em></td>
+                <td>Protein variant</td>
+                <td>p.R234F</td>
+                <td>antibiotic target alteration</td>
+                <td>Elfamycin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli GlpT with mutation conferring resistance to fosfomycin</em></td>
+                <td><em>antibiotic-resistant GlpT</em></td>
+                <td>Protein variant</td>
+                <td>p.E448K</td>
+                <td>antibiotic target alteration</td>
+                <td>Phosphonic Acid Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli UhpT with mutation conferring resistance to fosfomycin</em></td>
+                <td><em>antibiotic-resistant UhpT</em></td>
+                <td>Protein variant</td>
+                <td>p.E350Q</td>
+                <td>antibiotic target alteration</td>
+                <td>Phosphonic Acid Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli AcrAB-TolC with MarR mutations conferring resistance to ciprofloxacin and tetracycline</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli mdfA</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli soxR with mutation conferring antibiotic resistance</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump; major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli soxS with mutation conferring antibiotic resistance</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump; major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump; General Bacterial Porin with reduced permeability to beta-lactams</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux; reduced permeability to antibiotic</td>
+                <td>Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Haemophilus influenzae PBP3 conferring resistance to beta-lactam antibiotics</em></td>
+                <td><em>Penicillin-binding protein mutations conferring resistance to beta-lactam antibiotics</em></td>
+                <td>Protein variant</td>
+                <td>p.D350N,p. S357N</td>
+                <td>antibiotic target alteration</td>
+                <td>Cephalosporin; Cephamycin; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Klebsiella pneumoniae KpnE</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Tetracycline Antibiotic; Peptide Antibiotic; Rifamycin Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Klebsiella pneumoniae KpnF</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Tetracycline Antibiotic; Peptide Antibiotic; Rifamycin Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MdtK</em></td>
+                <td><em>multidrug and toxic compound extrusion (MATE) transporter</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli acrA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>PmrF</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>marA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump; General Bacterial Porin with reduced permeability to beta-lactams</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux; reduced permeability to antibiotic</td>
+                <td>Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>leuO</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Nucleoside Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>kdpE</em></td>
+                <td><em>kdpDE</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>gadX</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>eptA</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>evgS</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam; Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>evgA</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam; Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>emrY</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>gadW</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>rsmA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtF</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtG</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Phosphonic Acid Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtH</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtM</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Lincosamide Antibiotic; Nucleoside Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtN</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Nucleoside Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtO</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Nucleoside Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtP</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Nucleoside Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>msbA</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Nitroimidazole Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ugd</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanG</em></td>
+                <td><em>glycopeptide resistance gene cluster; Van ligase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>emrK</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtE</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>cpxA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mdtA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>baeR</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>AcrE</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Cephamycin; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>AcrF</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Cephamycin; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>AcrS</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ArnT</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>CRP</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli AcrAB-TolC with AcrR mutation conferring resistance to ciprofloxacin, tetracycline, and ceftazidime</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli EF-Tu mutants conferring resistance to Pulvomycin</em></td>
+                <td><em>elfamycin resistant EF-Tu</em></td>
+                <td>Protein variant</td>
+                <td>p.R234F</td>
+                <td>antibiotic target alteration</td>
+                <td>Elfamycin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli acrA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli ampC beta-lactamase</em></td>
+                <td><em>ampC-type beta-lactamase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Cephalosporin; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli mdfA</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli mdfA</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli soxR with mutation conferring antibiotic resistance</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump; major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli AcrAB-TolC with MarR mutations conferring resistance to ciprofloxacin and tetracycline</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>baeS</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Escherichia coli soxS with mutation conferring antibiotic resistance</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump; major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump; General Bacterial Porin with reduced permeability to beta-lactams</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux; reduced permeability to antibiotic</td>
+                <td>Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>bacA</em></td>
+                <td><em>undecaprenyl pyrophosphate related proteins</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>acrD</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>acrB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>TolC</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump; major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Glycylcycline; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>YojI</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Klebsiella pneumoniae KpnF</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Tetracycline Antibiotic; Peptide Antibiotic; Rifamycin Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Klebsiella pneumoniae KpnE</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Tetracycline Antibiotic; Peptide Antibiotic; Rifamycin Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Haemophilus influenzae PBP3 conferring resistance to beta-lactam antibiotics</em></td>
+                <td><em>Penicillin-binding protein mutations conferring resistance to beta-lactam antibiotics</em></td>
+                <td>Protein variant</td>
+                <td>p.D350N,p. S357N</td>
+                <td>antibiotic target alteration</td>
+                <td>Cephalosporin; Cephamycin; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>H-NS</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>PmrF</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>adeF</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>TriB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>YajC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Oxazolidinone Antibiotic; Glycopeptide Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Type B NfxB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Penam; Tetracycline Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>TriC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>TriA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ParS</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump; Outer Membrane Porin (Opr)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux; reduced permeability to antibiotic</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Pseudomonas aeruginosa emrE</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Pseudomonas aeruginosa catB7</em></td>
+                <td><em>chloramphenicol acetyltransferase (CAT)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Pseudomonas aeruginosa CpxR</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>PmpM</em></td>
+                <td><em>multidrug and toxic compound extrusion (MATE) transporter</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>arnA</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Pseudomonas aeruginosa soxR</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump; major facilitator superfamily (MFS) antibiotic efflux pump; resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Glycylcycline; Penam; Tetracycline Antibiotic; Rifamycin Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>basR</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Protein variant</td>
+                <td>p.L71R</td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>opmE</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Carbapenem; Tetracycline Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>bcr-1</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Bicyclomycin-Like Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>cprR</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>cprS</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mexM</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mexN</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mexP</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Carbapenem; Tetracycline Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mexQ</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Carbapenem; Tetracycline Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mexY</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>nalC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td>p.G71E</td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>nalD</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ParR</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump; Outer Membrane Porin (Opr)</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux; reduced permeability to antibiotic</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>rsmA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanH gene in vanB cluster</em></td>
+                <td><em>vanH; glycopeptide resistance gene cluster</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanW gene in vanG cluster</em></td>
+                <td><em>vanW; glycopeptide resistance gene cluster</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>basS</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>PDC-3</em></td>
+                <td><em>PDC beta-lactamase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>OprJ</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Penam; Tetracycline Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>OprM</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>APH(3')-IIb</em></td>
+                <td><em>APH(3')</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>ArnT</em></td>
+                <td><em>pmr phosphoethanolamine transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Peptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>FosA</em></td>
+                <td><em>fosfomycin thiol transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Phosphonic Acid Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>OprN</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Penam; Tetracycline Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexD</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Cephalosporin; Penam; Tetracycline Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexE</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexF</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexG</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexH</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexI</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexJ</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexK</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexR</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic target alteration; antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Monobactam; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Aminocoumarin Antibiotic; Diaminopyrimidine Antibiotic; Sulfonamide Antibiotic; Phenicol Antibiotic; Penem</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexS</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexT</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexV</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexW</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexZ</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Protein variant</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Fluoroquinolone Antibiotic; Aminoglycoside Antibiotic; Carbapenem; Cephalosporin; Cephamycin; Penam; Tetracycline Antibiotic; Phenicol Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MuxA</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Monobactam; Tetracycline Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MuxB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Monobactam; Tetracycline Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MuxC</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Monobactam; Tetracycline Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>OXA-486</em></td>
+                <td><em>OXA beta-lactamase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Carbapenem; Cephalosporin; Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>OpmB</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Monobactam; Tetracycline Antibiotic; Aminocoumarin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>OpmD</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>OpmH</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>MexL</em></td>
+                <td><em>resistance-nodulation-cell division (RND) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Tetracycline Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanY gene in vanB cluster</em></td>
+                <td><em>vanY; glycopeptide resistance gene cluster</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>lsaA</em></td>
+                <td><em>lsa-type ABC-F protein</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target protection</td>
+                <td>Lincosamide Antibiotic; Streptogramin Antibiotic; Streptogramin A Antibiotic; Streptogramin B Antibiotic; Pleuromutilin Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanT gene in vanG cluster</em></td>
+                <td><em>glycopeptide resistance gene cluster; vanT</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>dfrE</em></td>
+                <td><em>trimethoprim resistant dihydrofolate reductase dfr</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target replacement</td>
+                <td>Diaminopyrimidine Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>emeA</em></td>
+                <td><em>multidrug and toxic compound extrusion (MATE) transporter</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>sepA</em></td>
+                <td><em>small multidrug resistance (SMR) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>sdrM</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>norC</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>norC</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>norC</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mgrA</em></td>
+                <td><em>ATP-binding cassette (ABC) antibiotic efflux pump; major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Cephalosporin; Penam; Tetracycline Antibiotic; Peptide Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mepR</em></td>
+                <td><em>multidrug and toxic compound extrusion (MATE) transporter</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Glycylcycline; Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>mepA</em></td>
+                <td><em>multidrug and toxic compound extrusion (MATE) transporter</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Glycylcycline; Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>arlS</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>arlR</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic; Disinfecting Agents And Antiseptics</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Staphylococcus aureus norA</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Fluoroquinolone Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Staphylococcus aureus LmrS</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Macrolide Antibiotic; Aminoglycoside Antibiotic; Oxazolidinone Antibiotic; Diaminopyrimidine Antibiotic; Phenicol Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>Staphylococcus aureus FosB</em></td>
+                <td><em>fosfomycin thiol transferase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Phosphonic Acid Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>PC1 beta-lactamase (blaZ)</em></td>
+                <td><em>BlaZ beta-lactamase</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic inactivation</td>
+                <td>Penam</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>tet(38)</em></td>
+                <td><em>major facilitator superfamily (MFS) antibiotic efflux pump</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Tetracycline Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>kdpD</em></td>
+                <td><em>kdpDE</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic efflux</td>
+                <td>Aminoglycoside Antibiotic</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>CARD (Unknown)</td>
+                <td>RGI (6.0.3)</td>
+                <td><em>vanT gene in vanG cluster</em></td>
+                <td><em>glycopeptide resistance gene cluster; vanT</em></td>
+                <td>Gene presence</td>
+                <td></td>
+                <td>antibiotic target alteration</td>
+                <td>Glycopeptide Antibiotic</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    <p class="disclaimer"> <font color="#8B0000">Not a validated test. For research use only</font></p>
+</body>
+</html>
