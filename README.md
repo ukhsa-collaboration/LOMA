@@ -180,15 +180,15 @@ Excluding taxonomic databases will skip the associated step, reducing overall ru
 ```
 ### Skipping/reducing polishing
 
-Assembly error correction is a very time consuming step. To save time you can reduce the number of rounds of Racon polishing (default: 4, range: 0-4), e.g.:
+Assembly error correction is a very time consuming step. To save time you can reduce the number of rounds of Racon polishing:
 ```
   --ASSEMBLY.racon_rounds 1                         Runs 1 round of Racon polishing (default:4, range: 0-4)
 ```
-If you find the per-base accuracy of your MAGs are low, even after polishing with Racon. You can enable Medaka polishing (very slow so disabled by default):
+If you find the per-base accuracy of your MAGs are low, even after polishing with Racon. You can enable Medaka polishing (very slow, so disabled by default):
 ```
   --ASSEMBLY.medaka                                   Perform metagenome assembly polishing with Medaka.
 ```
-However, a quicker aproach is to only polish the MAGs of interest. This can be done by specifying: 
+However, a quicker approach is to only polish the MAGs of interest. This can be done by specifying: 
 ```
   --BIN_TAXONOMY.medaka_mag                           Polish individual metagenome assembled genomes with Medaka.
 ```
