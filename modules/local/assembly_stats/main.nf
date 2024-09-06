@@ -3,8 +3,8 @@ process ASSEMBLY_STATS {
     label 'process_single'
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'quay.io/djberger/lma_img:latest' :
-        'quay.io/djberger/lma_img:latest' }"
+        'quay.io/biocontainers/biopython@sha256:f85da084589c559a5b99f3075cd4c5eeb1d846d37bc43dd0ee9d1b834dbafbbb' :
+        'quay.io/biocontainers/biopython@sha256:f85da084589c559a5b99f3075cd4c5eeb1d846d37bc43dd0ee9d1b834dbafbbb' }"
 
     input:
     tuple val(meta), path(fasta, stageAs: "input_bins/*")
