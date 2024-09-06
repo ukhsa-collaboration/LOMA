@@ -54,12 +54,12 @@ workflow AMR_TYPING {
     RESFINDER(ch_assembly)
     ch_versions = ch_versions.mix(RESFINDER.out.versions)
 
-    HAMRONIZATION_RESFINDER(RESFINDER.out.results_resfinder,"tsv", params.RESFINDER.db_version,"DB")
+    HAMRONIZATION_RESFINDER(RESFINDER.out.results_resfinder,"tsv", params.RESFINDER.db_version, params.RESFINDER.db_version)
     ch_versions = ch_versions.mix(HAMRONIZATION_RESFINDER.out.versions)
 
     ch_amr_summarize = ch_amr_summarize.mix(HAMRONIZATION_RESFINDER.out.tsv)
 
-    HAMRONIZATION_POINTFINDER(RESFINDER.out.results_pointfinder, "tsv", params.POINTFINDER.db_version, "DB")
+    HAMRONIZATION_POINTFINDER(RESFINDER.out.results_pointfinder, "tsv", params.POINTFINDER.db_version, params.POINTFINDER.db_version)
     ch_versions = ch_versions.mix(HAMRONIZATION_POINTFINDER.out.versions)
 
     ch_amr_summarize = ch_amr_summarize.mix(HAMRONIZATION_POINTFINDER.out.tsv)

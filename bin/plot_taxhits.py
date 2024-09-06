@@ -276,6 +276,7 @@ def process_sylph(sylph_infile, sylph_metadata):
 	sylph_stacked = pd.concat([top_20, other])
 	sylph_stacked['perc'] = ((sylph_stacked['Taxonomic_abundance']/rcount)*100).round(2)
 	sylph_stacked['x_value'] = 1
+	sylph_stacked['Sequence_abundance'] = sylph_stacked['Sequence_abundance'].round(2)
 
 	return(sylph_stacked)
 
