@@ -95,7 +95,7 @@ Detailed installation instructions for LOMA and associated databases can be foun
 
 # Running  <a name="run"></a>
 
-### Usage
+## Usage
 
 There is only one mandatory parameter for running LOMA, an input file (format detailed below).
 
@@ -103,7 +103,7 @@ There is only one mandatory parameter for running LOMA, an input file (format de
 ./run_loma --input input.tsv
 ```
 
-### Input file structure
+## Input file structure
 
 The input file (e.g. 'input.tsv') is a five column tab-separated file with the following structure:
 ```
@@ -121,7 +121,7 @@ RUN_ID  BARCODE_ID  SAMPLE_ID   SAMPLE_TYPE /FULL/PATH/TO/FASTQ_FILE
   > - Periods ('.') will automatically bereplaced with underscores ('_') in the output.
 
 
-Example input file:
+### Example input file:
 ```
 RUN01	RB01	SAMPLE_1	BLOOD	/data/reads/SAMPLE_1.BLOOD.fq.gz
 RUN01	RB02	SAMPLE_2	BLOOD	/data/reads/SAMPLE_2.BLOOD.fq.gz
@@ -129,9 +129,7 @@ RUN02	UNKNOWN	SAMPLE_3	SALIVA	/data/reads/SAMPLE_3.NASOPHARYNGEAL.fq.gz
 RUN03	XBD     SAMPLE_1	SKIN	/data/reads/SAMPLE_3.SKIN.fq.gz
 ```
 
-Detailed running instructions for LOMA can be found on the **[`wiki`]()**.
-
-### Optional parameters
+## Optional parameters
 
 A full list of optional parameters for LOMA can be found on the **[`wiki`]()**.
 
@@ -148,13 +146,14 @@ The full list of parameters can be shown with:
 
 ## Output folder structure
 
-LOMA will output files per-metric/tool as well as a series of summary reports. Outputs can be found in the directory specified by the '--outdir' parameter (default: 'results'). Results are separated by RUN_ID, then SAMPLE_ID and finally by approach and metric. A summary of the folder structure can be found below. 
+LOMA outputs can be grouped into two major categories:
+- Per-metric outputs, created for each analysis step.
+  - A graphical summary of the output folder structure can be found on the **[`wiki`]()**.
+- Summary outputs - HTML and TSV reports (see below).
 
-Detailed descriptions of the output folder structure and summary reportscan be found on the **[`wiki`]()**.
+### HTML reports
 
-## HTML reports
-
-A series of HTML summary reports can be found in the 'summary' directory, these cover the major areas of interest when sequencing metagenomic samples and should assist in assessing saequencing data quality, sample composition and perform various types of *in silico* phenotyping.
+Five HTML reports can be found in the output 'summary' directory, these cover the major areas of interest when sequencing metagenomic samples and should assist in assessing saequencing data quality, sample composition and perform various types of *in silico* phenotyping.
 
 Example reports Nanopore sequencing of the ZymoBIOMICS HMW DNA Standard (ERR7287988) can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**. 
 
