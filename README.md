@@ -115,10 +115,10 @@ RUN_ID  BARCODE_ID  SAMPLE_ID   SAMPLE_TYPE /FULL/PATH/TO/FASTQ_FILE
 - _SAMPLE_TYPE_:                  Sample description, will be added to the reports, but doesn't change how the sample is processed. 
 - _/FULL/PATH/TO/FASTQ_FILE_:     Location of input FASTQ files.
 
-  > ℹ️ Optional databases
-  > - Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's (either is fine though).
+  > ℹ️ Input file formatting
+  > - Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's.
   > - Inputs containing spaces should be enclosed in quotation marks (").
-  > - If any of the columns contain a period ('.'), they'll be automatically replaced with an underscore ('_') in the output.
+  > - Periods ('.') will automatically bereplaced with underscores ('_') in the output.
 
 
 Example input file:
