@@ -84,7 +84,7 @@ Step by step instructions for installation and initital runs can be found on the
 - Optional: Up to 14 databases containing relevant reference datasets. 
   > ℹ️ Optional databases
   > - If optional databases are not installed the pipeline will still run without error but the associated stages will be skipped. 
-  > - A **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files.
+  > - A **[script](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files.
 
   > - It is highly recommended to install the at least one of: Kraken2, Centrifuger and/or Slyph databases, as this is required for read-based taxonomic assignment. 
   > - It is highly recommended to install the Genome Taxonomy Database (GTDB) as this is required to add taxonomic assignments to metagenome-assembled genomes.
