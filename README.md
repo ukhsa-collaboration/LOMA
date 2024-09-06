@@ -63,42 +63,35 @@ The pipeline will perform the following steps:
 
 # Installation <a name="install"></a>
 
-Step by step instructions for installation and initital runs can be found on the [`wiki`](). A short summary is also given below. 
+Step by step instructions for installation and initital runs can be found on the **[`wiki`]()**. A short summary is also given below. 
 
 ### Software 
-LOMA has two dependencies:
-
-- A container runtime, currently only Singularity is supported.
 - Nextflow.
-
-The first time LOMA runs a process it will download software containers for the required stage. Prior to running the pipeline the user will need to specify the directory these will be stored in with the following command:
-```
-export NXF_SINGULARITY_CACHEDIR=/FULL/PATH/TO/CONTAINER/DIRECTORY
-```
-For ease of use I would suggest adding the export command to your ~/.bashrc or ~/.bash_profile file. 
+- A container runtime, currently only Singularity is supported.
 
 ### Hardware
-
+- At least 16GB of RAM.
+- At least 100 GB of storage
   > ℹ️ Storage requirements
   > - The pipeline installation requires 100 Mb of storage.
-  > - Combined the defaukt databases use ~XX Gb of storage
-  > - Containers require a total of XX Gb of storage.
+  > - Combined the defaukt databases use ~XX GB of storage
+  > - Containers require a total of XX GB of storage.
   > - The pipeline generates a variable number/size of input files, depending on input size and quality. Generally this ranges from 30-60 Gb. 
   > - The pipeline output generates ~200 Mb of output files per-sample.
 
-
-
-
 ### Databases
+- Mandatory: A host reference database (genome assembly and/or Kraken2 database)
+- Optional: Up to 14 databases containing relevant reference datasets. 
+  > ℹ️ Optional databases
+  > - If optional databases are not installed the pipeline will still run without error but the associated stages will be skipped. 
+  > - A **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files.
 
-Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files. 
+  > - It is highly recommended to install the at least one of: Kraken2, Centrifuger and/or Slyph databases, as this is required for read-based taxonomic assignment. 
+  > - It is highly recommended to install the Genome Taxonomy Database (GTDB) as this is required to add taxonomic assignments to metagenome-assembled genomes.
+  > - It is highly recommended to install geNomad and Skani databases as these are required for contig classification. 
 
 
 Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`]()**.
-
-### Storage requirements
-LOMA can run on a small number of databases, although this is not recommended as processes will be skipped. 
-
 
 # Running  <a name="run"></a>
 
@@ -116,20 +109,23 @@ The input file (e.g. 'input.tsv') is a five column tab-separated file with the f
 ```
 RUN_ID  BARCODE_ID  SAMPLE_ID   SAMPLE_TYPE /FULL/PATH/TO/FASTQ_FILE
 ```
-
 - _RUN_ID_:                       Run identifier, will determine the highest level directory name in the results directory
 - _BARCODE_ID_:                   Sample barcode 
 - _SAMPLE_ID_:                    Sample identifier, will determine the subdirectory where results are stored per-sample
 - _SAMPLE_TYPE_:                  Sample description, will be added to the reports, but doesn't change how the sample is processed. 
 - _/FULL/PATH/TO/FASTQ_FILE_:     Location of input FASTQ files.
 
-Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's (either is fine though). If any of the columns contain a period ('.'), they'll be automatically replaced with an underscore ('_') in the output. Sample barcode and sample type can be any string, it doesn't impact the analyses. 
+  > ℹ️ Optional databases
+  > - Any number of samples can be included provided they do not have both identical RUN_ID and SAMPLE_ID's (either is fine though).
+  > - Inputs containing spaces should be enclosed in quotation marks (").
+  > - If any of the columns contain a period ('.'), they'll be automatically replaced with an underscore ('_') in the output.
+
 
 Example input file:
 ```
 RUN01	RB01	SAMPLE_1	BLOOD	/data/reads/SAMPLE_1.BLOOD.fq.gz
 RUN01	RB02	SAMPLE_2	BLOOD	/data/reads/SAMPLE_2.BLOOD.fq.gz
-RUN02	RB01	SAMPLE_3	SALIVA	/data/reads/SAMPLE_3.NASOPHARYNGEAL.fq.gz
+RUN02	UNKNOWN	SAMPLE_3	SALIVA	/data/reads/SAMPLE_3.NASOPHARYNGEAL.fq.gz
 RUN03	XBD     SAMPLE_1	SKIN	/data/reads/SAMPLE_3.SKIN.fq.gz
 ```
 
