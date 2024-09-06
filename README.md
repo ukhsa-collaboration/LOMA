@@ -154,22 +154,13 @@ LOMA outputs can be grouped into two major categories:
 ### HTML reports
 
 - Five HTML reports can be found in the output 'summary' directory, covering major analysis areas, along with an overall summary report.
-- Example reports using sequence data for the ZymoBIOMICS HMW DNA Standard (ERR7287988), can be found *[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
+    - **<SAMPLE_ID>.<RUN_ID>.summary_report.html** - Simiplified summary detailing all major metrics/results of interest.
+    - **<SAMPLE_ID>.<RUN_ID>.readqc_report.html** - Read quality metrics, pre- and post- quality control.
+    - **<SAMPLE_ID>.<RUN_ID>.taxonomy_report.html** - Read-based taxonomic abundance for Kraken2, Centrifuger and/or Sylph.
+    - **<SAMPLE_ID>.<RUN_ID>.amr_report.html** - Results of AMR typing tools (ABRicate, AMRFinderPlus, ResFinder and RGI).
+    - **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html** - Summary of binning results.
+- Example reports using sequence data for the ZymoBIOMICS HMW DNA Standard (ERR7287988), can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
 
-#### **<SAMPLE_ID>.<RUN_ID>.summary_report.html** 
-- Simiplified summary detailing all major metrics/results of interest, for an overall sample summary.
-
-#### **<SAMPLE_ID>.<RUN_ID>.readqc_report.html** 
-- Read quality metrics, pre- and post- quality control.
-
-#### **<SAMPLE_ID>.<RUN_ID>.taxonomy_report.html** 
-- Read-based taxonomic abundance for Kraken2, Centrifuger and/or Sylph (depending on which tools were used).
-
-####  **<SAMPLE_ID>.<RUN_ID>.amr_report.html** 
-- Results of AMR typing tools (ABRicate, AMRFinderPlus, ResFinder and RGI).
-
-#### **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html**
-- Summary of binning results.
 
 # Tips for improving speed and efficiency  <a name="tips"></a>
 
