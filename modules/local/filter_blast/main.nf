@@ -2,6 +2,10 @@ process FILTER_BLAST {
     tag "$meta.id"
     label 'process_single'
 
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'quay.io/biocontainers/biopython@sha256:f85da084589c559a5b99f3075cd4c5eeb1d846d37bc43dd0ee9d1b834dbafbbb' :
+        'quay.io/biocontainers/biopython@sha256:f85da084589c559a5b99f3075cd4c5eeb1d846d37bc43dd0ee9d1b834dbafbbb' }"
+
     input:
     tuple val(meta), path(workflow), path(blast_results)
 
