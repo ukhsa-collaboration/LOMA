@@ -158,7 +158,7 @@ LOMA outputs can be grouped into two major categories:
     - **<SAMPLE_ID>.<RUN_ID>.taxonomy_report.html** - Read-based taxonomic abundances.
     - **<SAMPLE_ID>.<RUN_ID>.amr_report.html** - Results of AMR typing tools.
     - **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html** - Summary of binning results.
-- Example reports using sequence data for the ZymoBIOMICS HMW DNA Standard (ERR7287988), can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
+- Example reports using data for the ZymoBIOMICS HMW DNA Standard (ERR7287988), can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
 
 
 # Tips for improving speed and efficiency  <a name="tips"></a>
