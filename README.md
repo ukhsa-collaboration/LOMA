@@ -74,8 +74,8 @@ Step by step instructions for installation and initital runs can be found on the
 - At least 100 GB of storage
   > ℹ️ Storage requirements
   > - The pipeline installation requires 100 Mb of storage.
-  > - Combined the defaukt databases use ~XX GB of storage
-  > - Containers require a total of XX GB of storage.
+  > - Combined the default databases use 120 GB of storage
+  > - Containers require a total of 11 GB of storage.
   > - The pipeline generates a variable number/size of input files, depending on input size and quality. Generally this ranges from 30-60 Gb. 
   > - The pipeline output generates ~200 Mb of output files per-sample.
 
