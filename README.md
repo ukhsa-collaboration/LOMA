@@ -31,10 +31,8 @@ Updates:
 LOMA is a Nextflow pipeline designed to comprehensively assess metagenomic samples sequenced using the Oxford Nanopore (long-read) platform.
 
 The pipeline has two primary approaches to analysis:\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1). Read-based taxonomic classification - assign a taxonomic designation to individual sequencing reads.\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2). Assembly of metagenome assembled genomes (MAGs) followed by general/taxonomy-specific *in silico* typing.
-
-The results of these analyses are then available of per-metric files and further compilied into a series of summary reports (HTML and TSV files).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1). Read-based taxonomic classification** - assign a taxonomic designation to individual sequencing reads.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2). Metagenome assembly** - assemble and perform *in silico* typing typing of metagenome assembled genomes
 
 A general overview is provided below. Detailed guidance on the installation, usage and function of LOMA can be found in the **[`wiki`]()**, example outputs can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
 
