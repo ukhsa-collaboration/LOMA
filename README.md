@@ -51,7 +51,7 @@ The pipeline will perform the following steps:
 **2). Read-based taxonomic annotation** - Read-based taxonomic classification, standardization and summary reporting.\
 **3). Host read removal** - Identify and remove host-contaminant reads followed by merging of quality control results into summary reports.\
 **4). Assembly** - Assembly of reads into metagenome and polishing (contig error correction).\
-**5). Contig analysis** - Per-contig identification of closest taxonomic hits, mobile genetic elements and contig summary statistics.\
+**5). Contig analysis** - Per-contig identification of taxonomic hits, mobile genetic elements and contig statistics.\
 **6). Assembly binning** - Classify and bin contigs into individual metagenome assembled genomes (MAGs).\
 **7). Bin quality control** - Assess the quality of MAGs and merge bin QC and contig QC results into summary reports.\
 **8). Typing** - Subset MAGs (target species) and pass them on to individual subworkflows (run per-MAG).\
@@ -152,12 +152,11 @@ LOMA outputs can be grouped into two major categories:
 - Summary outputs - HTML and TSV reports (see below).
 
 ### HTML reports
-
-- Five HTML reports can be found in the output 'summary' directory, covering major analysis areas, along with an overall summary report.
-    - **<SAMPLE_ID>.<RUN_ID>.summary_report.html** - Simiplified summary detailing all major metrics/results of interest.
+- HTML reports can be found in the output 'summary' directory, covering major analysis areas, along with an overall summary report.
+    - **<SAMPLE_ID>.<RUN_ID>.summary_report.html** - Simiplified summary detailing all major metrics.
     - **<SAMPLE_ID>.<RUN_ID>.readqc_report.html** - Read quality metrics, pre- and post- quality control.
-    - **<SAMPLE_ID>.<RUN_ID>.taxonomy_report.html** - Read-based taxonomic abundance for Kraken2, Centrifuger and/or Sylph.
-    - **<SAMPLE_ID>.<RUN_ID>.amr_report.html** - Results of AMR typing tools (ABRicate, AMRFinderPlus, ResFinder and RGI).
+    - **<SAMPLE_ID>.<RUN_ID>.taxonomy_report.html** - Read-based taxonomic abundances.
+    - **<SAMPLE_ID>.<RUN_ID>.amr_report.html** - Results of AMR typing tools.
     - **<SAMPLE_ID>.<RUN_ID>.summary_binning_report.html** - Summary of binning results.
 - Example reports using sequence data for the ZymoBIOMICS HMW DNA Standard (ERR7287988), can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
 
