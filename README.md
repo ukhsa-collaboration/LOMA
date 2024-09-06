@@ -63,18 +63,37 @@ The pipeline will perform the following steps:
 **9). Antimicrobial resistance** - Identify AMR genes (incl. point mutations), virulence/stress resistance genes and merge results into a summary report.
 
 # Installation <a name="install"></a>
+
+Step by step instructions for installation and initital runs can be found on the [`wiki`](). A short summary is also given below. 
+
+### Software 
 LOMA has two dependencies:
 
 - A container runtime, currently only Singularity is supported.
 - Nextflow.
 
-Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files. 
-
-The first time LOMA runs a process it will download software containers for the required stage, across all stages this will required XX GB of storage space. Prior to running the pipeline the user will need to specify the directory these will be stored in with the following command:
+The first time LOMA runs a process it will download software containers for the required stage. Prior to running the pipeline the user will need to specify the directory these will be stored in with the following command:
 ```
 export NXF_SINGULARITY_CACHEDIR=/FULL/PATH/TO/CONTAINER/DIRECTORY
 ```
 For ease of use I would suggest adding the export command to your ~/.bashrc or ~/.bash_profile file. 
+
+### Hardware
+
+  > ℹ️ Storage requirements
+  > - The pipeline installation requires 100 Mb of storage.
+  > - Combined the defaukt databases use ~XX Gb of storage
+  > - Containers require a total of XX Gb of storage.
+  > - The pipeline generates a variable number/size of input files, depending on input size and quality. Generally this ranges from 30-60 Gb. 
+  > - The pipeline output generates ~200 Mb of output files per-sample.
+
+
+
+
+### Databases
+
+Only one database is mandatory to run LOMA - the host reference genome assembly or the host reference Kraken2 database (can be either or both). There are 14 optional databases required to run certain stages if these are not downloaded/installed then parts of the pipeline will be skipped. To simplify database installation, a **[`script`](https://github.com/ukhsa-collaboration/LOMA/blob/main/bin/get_dbs.py)** is provided which will download any requested databases and update the relevant config files. 
+
 
 Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`]()**.
 
