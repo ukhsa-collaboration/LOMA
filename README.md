@@ -34,7 +34,7 @@ The pipeline has two primary approaches to analysis:\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1). Read-based taxonomic classification** - assign a taxonomic designation to individual sequencing reads.\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2). Metagenome assembly** - assemble and perform *in silico* typing typing of metagenome assembled genomes
 
-A general overview is provided below. Detailed guidance on the installation, usage and function of LOMA can be found in the **[`wiki`]()**, example outputs can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
+A general overview is provided below. Detailed guidance on the installation, usage and function of LOMA can be found in the **[`wiki`](https://github.com/ukhsa-collaboration/LOMA/wiki)**, example outputs can be found **[`here`](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
 
 # Pipeline summary <a name="summary"></a>
 
@@ -63,7 +63,7 @@ The pipeline will perform the following steps:
 
 # Installation <a name="install"></a>
 
-Step by step instructions for installation and initital runs can be found on the **[`wiki`]()**. A short summary is also given below. 
+Step by step instructions for installation and initital runs can be found on the **[`wiki`](https://github.com/ukhsa-collaboration/LOMA/wiki/1\).-Installation)**. A short summary is also given below. 
 
 ### Software 
 - Nextflow.
@@ -91,7 +91,7 @@ Step by step instructions for installation and initital runs can be found on the
   > - It is highly recommended to install geNomad and Skani databases as these are required for contig classification. 
 
 
-Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`]()**.
+Detailed installation instructions for LOMA and associated databases can be found on the **[`wiki`](https://github.com/ukhsa-collaboration/LOMA/wiki/1\).-Installation#databases-)**.
 
 # Running  <a name="run"></a>
 
@@ -131,7 +131,7 @@ RUN03	XBD     SAMPLE_1	SKIN	/data/reads/SAMPLE_3.SKIN.fq.gz
 
 ## Optional parameters
 
-A full list of optional parameters for LOMA can be found on the **[`wiki`]()**.
+A full list of optional parameters for LOMA can be found on the **[`wiki`](https://github.com/ukhsa-collaboration/LOMA/wiki/3\).-Running)**.
 
 Major optional parameters can be shown with:
 ```
@@ -148,7 +148,7 @@ The full list of parameters can be shown with:
 
 LOMA outputs can be grouped into two major categories:
 - Per-metric outputs, created for each analysis step.
-  - A graphical summary of the output folder structure can be found on the **[`wiki`]()**.
+  - A graphical summary of the output folder structure can be found on the **[`wiki`](https://github.com/ukhsa-collaboration/LOMA/wiki/4\).-Output)**.
 - Summary outputs - HTML and TSV reports (see below).
 
 ### HTML reports
@@ -217,7 +217,7 @@ Skip geNomad neural network-based classification, this will reduce runtime at th
   --GENOMAD_ENDTOEND.args="--disable-nn-classification"
 ```
 
-Further tips for optimization can be found on the **[`wiki`]()**.
+Further tips for optimization can be found on the **[`wiki`](https://github.com/ukhsa-collaboration/LOMA/wiki/3\).-Running#reducing-runtime-)**.
 
 # Troubleshooting and errors  <a name="troubleshoot"></a>
 
