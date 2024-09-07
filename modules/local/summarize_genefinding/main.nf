@@ -2,6 +2,10 @@ process SUMMARIZE_GENEFINDING {
     tag "$meta.id"
     label 'process_single'
 
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'quay.io/djberger/lma_img:latest' :
+        'quay.io/djberger/lma_img:latest' }"
+
     input:
     tuple val(meta), path(blastn), path(genefinder), path(virulencefinder)
 
