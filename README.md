@@ -66,10 +66,12 @@ The pipeline will perform the following steps:
 Step by step instructions for installation and initital runs can be found on the **[wiki](https://github.com/ukhsa-collaboration/LOMA/wiki/1\).-Installation)**. A short summary is also given below. 
 
 ### Software 
-- Nextflow.
-- A container runtime, currently only Singularity is supported.
+- [Nextflow](https://www.nextflow.io/docs/latest/install.html).
+- [Java 11 (or later, up to 22)](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (required for Nextflow)
+- A container runtime, currently only [Singularity](https://sylabs.io/singularity/) is supported.
 
 ### Hardware
+- A POSIX-compatible system (Linux, macOS, etc) or Windows through [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux)
 - At least 16GB of RAM.
 - At least 100 GB of storage
   > ℹ️ Storage requirements
@@ -89,7 +91,6 @@ Step by step instructions for installation and initital runs can be found on the
   > - It is highly recommended to install the at least one of: Kraken2, Centrifuger and/or Slyph databases, as this is required for read-based taxonomic assignment. 
   > - It is highly recommended to install the Genome Taxonomy Database (GTDB) as this is required to add taxonomic assignments to metagenome-assembled genomes.
   > - It is highly recommended to install geNomad and Skani databases as these are required for contig classification. 
-
 
 Detailed installation instructions for LOMA and associated databases can be found on the **[wiki](https://github.com/ukhsa-collaboration/LOMA/wiki/1\).-Installation#databases-)**.
 
