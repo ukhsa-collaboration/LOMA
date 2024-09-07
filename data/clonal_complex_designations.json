@@ -1,6 +1,12 @@
 {
 "st_ebg_lookup":
     {
+     "saureus": {
+            "('9',)": "CC9"
+      },
+      "paeruginosa": {
+            "('252',)": "PA14"
+      },
       "salmonella": {
             "('19',)": "1"
       },
