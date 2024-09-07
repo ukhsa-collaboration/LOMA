@@ -373,7 +373,7 @@ def merge_ccvals(sample_data, taxp_fig_A_data, taxp_fig_B_data, taxp_fig_A_data_
 #
 def render_template(context, template, output):
 	template_dir = os.getcwd()
-	print(template_dir)
+
 	env = Environment(loader=FileSystemLoader(template_dir))
 	template = env.get_template(template)
 
@@ -418,37 +418,37 @@ def main():
 
 	if args.taxpasta_kraken2:
 		df_taxp, df_taxp_2x1 = process_taxpasta_A(args.taxpasta_kraken2)
-		taxp_fig_A_data = taxp_kraken2_plot_A = plot_taxpasta_A(df_taxp_2x1, "Kraken2", args.output)
+		taxp_fig_A_data = taxp_kraken2_plot_A = plot_taxpasta_A(df_taxp_2x1, "Kraken2", args.sample_id)
 		df_taxp_stacked = process_taxpasta_B(df_taxp)
-		taxp_fig_B_data = taxp_kraken2_plot_B = plot_taxpasta_B(df_taxp_stacked, "Kraken2", args.output)
+		taxp_fig_B_data = taxp_kraken2_plot_B = plot_taxpasta_B(df_taxp_stacked, "Kraken2", args.sample_id)
 	else:
 		taxp_fig_A_data = "None"
 		taxp_fig_B_data = "None"
 
 	if args.taxpasta_centrifuger:
 		df_taxp, df_taxp_2x1 = process_taxpasta_A(args.taxpasta_centrifuger)
-		taxp_fig_A_data_centrifuger = plot_taxpasta_A(df_taxp_2x1, "Centrifuger", args.output)
+		taxp_fig_A_data_centrifuger = plot_taxpasta_A(df_taxp_2x1, "Centrifuger", args.sample_id)
 		df_taxp_stacked = process_taxpasta_B(df_taxp)
-		taxp_fig_B_data_centrifuger = plot_taxpasta_B(df_taxp_stacked, "Centrifuger", args.output)
+		taxp_fig_B_data_centrifuger = plot_taxpasta_B(df_taxp_stacked, "Centrifuger", args.sample_id)
 	else:
 		taxp_fig_A_data_centrifuger = "None"
 		taxp_fig_B_data_centrifuger = "None"
 
 	if args.bracken_kraken2:
 		df_taxp_kraken2_bracken = process_bracken(args.bracken_kraken2)
-		fig_bracken_data_kraken2 = plot_bracken(df_taxp_kraken2_bracken, "Kraken2", args.output)
+		fig_bracken_data_kraken2 = plot_bracken(df_taxp_kraken2_bracken, "Kraken2", args.sample_id)
 	else:
 		fig_bracken_data_kraken2 = "None"
 
 	if args.bracken_centrifuger:
 		df_taxp_centrifuger_bracken = process_bracken(args.bracken_centrifuger)
-		fig_bracken_data_centrifuger = plot_bracken(df_taxp_centrifuger_bracken, "Centrifuger", args.output)
+		fig_bracken_data_centrifuger = plot_bracken(df_taxp_centrifuger_bracken, "Centrifuger", args.sample_id)
 	else:
 		fig_bracken_data_centrifuger = "None"
 
 	if args.sylph and args.syl_fn:
 		sylph_results = process_sylph(args.sylph, args.syl_fn)
-		fig_syl_data = plot_sylph(sylph_results, args.output)
+		fig_syl_data = plot_sylph(sylph_results, args.sample_id)
 	else:
 		fig_syl_data = "None"
 
