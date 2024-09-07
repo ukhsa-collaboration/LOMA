@@ -37,7 +37,7 @@ workflow SALMONELLA_TYPING {
     ch_versions = ch_versions.mix(FILTER_TYPING_SALMONELLA.out.versions)
 
     // Separate Paratyphi B and all other assemblies for Mykrobe
-    ch_mykrobe_in_typhi = FILTER_TYPING_SALMONELLA.out.typing.map{meta -> meta = [meta[0], [type: (meta[2].getName().split(/\./)[2])], meta[1]]}.filter({meta, type, seq -> type.type.toLowerCase().matches("typhi")}).map{meta -> meta = [meta[0], meta[2]]}
+    ch_mykrobe_in_typhi = FILTER_TYPING_SALMONELLA.out.typing.map{meta -> meta = [meta[0], [type: (meta[2].getName().split(/\./)[2])], meta[1]]}.filter({meta, type, seq -> !(type.type.toLowerCase().matches("paratyphi_b"))}).map{meta -> meta = [meta[0], meta[2]]}
     ch_mykrobe_in_paratyphib = FILTER_TYPING_SALMONELLA.out.typing.map{meta -> meta = [meta[0], [type: (meta[2].getName().split(/\./)[2])], meta[1]]}.filter({meta, type, seq -> type.type.toLowerCase().matches("paratyphi_b")}).map{meta -> meta = [meta[0], meta[2]]}
 
     // Runs Mykrobe on all non-Paratyphi B genomes
@@ -62,7 +62,6 @@ workflow SALMONELLA_TYPING {
     // Summarize typing results
     FILTER_SALMONELLA(ch_in_salmonella_3)
     ch_versions = ch_versions.mix(FILTER_SALMONELLA.out.versions)
-
 
     emit:
 
