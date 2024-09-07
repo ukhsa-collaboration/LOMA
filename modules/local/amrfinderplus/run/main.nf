@@ -38,7 +38,6 @@ process AMRFINDERPLUS_RUN {
         $fasta_param $fasta_name \\
         $organism_param \\
         $args \\
-        --database $db/ \\
         --threads $task.cpus > ${prefix}.tsv
 
 
