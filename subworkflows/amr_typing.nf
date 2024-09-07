@@ -24,16 +24,13 @@ workflow AMR_TYPING {
     ch_versions = Channel.empty()
     ch_amr_summarize = Channel.empty()
 
-    if (params.AMRFINDERPLUS_RUN.db) {
-        AMRFINDERPLUS_RUN(ch_assembly, params.AMRFINDERPLUS_RUN.db)
-        ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions) 
+    AMRFINDERPLUS_RUN(ch_assembly, [])
+    ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions) 
 
-        HAMRONIZATION_AMRFINDERPLUS(AMRFINDERPLUS_RUN.out.report, "tsv", params.AMRFINDERPLUS_RUN.software_version, params.AMRFINDERPLUS_RUN.db_version)
-        ch_versions = ch_versions.mix(HAMRONIZATION_AMRFINDERPLUS.out.versions)
+    HAMRONIZATION_AMRFINDERPLUS(AMRFINDERPLUS_RUN.out.report, "tsv", params.AMRFINDERPLUS_RUN.software_version, params.AMRFINDERPLUS_RUN.db_version)
+    ch_versions = ch_versions.mix(HAMRONIZATION_AMRFINDERPLUS.out.versions)
 
-        ch_amr_summarize = ch_amr_summarize.mix(HAMRONIZATION_AMRFINDERPLUS.out.tsv)
-    }
-
+    ch_amr_summarize = ch_amr_summarize.mix(HAMRONIZATION_AMRFINDERPLUS.out.tsv)
 
     ABRICATE_RUN(ch_assembly)
     ch_versions = ch_versions.mix(ABRICATE_RUN.out.versions)
@@ -69,7 +66,6 @@ workflow AMR_TYPING {
     ch_versions = ch_versions.mix(HAMRONIZATION_SUMMARIZE.out.versions)
 
     ch_amr_summarize = ch_amr_summarize.mix(HAMRONIZATION_SUMMARIZE.out.tsv)
-
 
     emit:
     ch_amr_reports = ch_amr_summarize
