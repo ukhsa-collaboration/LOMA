@@ -1,0 +1,1961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+        .header {
+            margin-bottom: 105px;
+            display: flex;
+            margin-left: 0px;
+            z-index: 1;
+       }
+        .title {
+            position: absolute;
+            left: 7;
+            height: 20%;
+            width: 70%;
+        }
+        .section {
+            margin-top: 20px;
+            margin-bottom: 60px;
+        }
+        h1 {
+           font-size: 75px;
+           color: black;
+        }
+        h2 {
+           font-size: 25px;
+           color: #8B0000;
+        }
+        .header img {
+            height: 200px;
+            margin-left: auto;
+            margin-top: 0px;
+            align-self: flex-start;
+        }
+        .section-title {
+            font-size: 30px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .data-table {
+             width: 100%;
+             border-collapse: collapse;
+        }
+        .data-table th, .data-table td {
+            padding: 8px;
+            font-size: 18px;
+            text-align: left;
+       }
+        .data-table th {
+            font-weight: bold;
+        }
+        .data-table tr {
+            border-top: 1px solid #ddd;
+        }
+        .data-table tr:first-child {
+            border-top: none;
+        }
+        .data-table .align-right{
+             width: 65%;
+        }
+        .taxonomy-header {
+            border-bottom: 2px solid #000;
+        }
+        .tr-spacer { height: 10px; } 
+        .disclaimer {
+           font-weight: bold;
+           font-size: 24px;
+           text-align: center;
+           margin-top: 20px;
+    </style>
+
+</head>
+<body>
+    <div class="header">
+    <div class="title">
+          <h1>Metagenomics Report</h1>
+          <h2>&nbspNot a validated test. For research use only</h2></div>
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAagAAAGYCAYAAAAXyHZtAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAuGgAALhoBVVTkqQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAYYSURBVHic7dUxAQAgDMAwwL/nYYCfHomCft0zMwsAYs7vAAB4MSgAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgCSDAiDJoABIMigAkgwKgKQLi0YHLPwcIegAAAAASUVORK5CYII=" alt="logo">
+    </div>
+
+
+    <div class="section">
+     <details open>
+     <summary class="section-title">Analysis Run Data</summary>
+        <table class="data-table">
+            <tr>
+                <th>Pipeline version:</th>
+                <td class="align-right">0.1</td>
+            </tr>
+            <tr>
+                <th>Report created:</th>
+                <td>09/07/24 ; 01:29:42</td>
+            </tr>
+        </table>
+    </details>
+    </div>
+
+
+    <div class="section">
+     <details open>
+     <summary class="section-title">Sample Data </summary>
+        <table class="data-table">
+            <tr>
+                <th>Sample ID:</th>
+                <td class="align-right">SAMEA10644977</td>
+            </tr>
+            <tr>
+                <th>Run ID:</th>
+                <td>ERR7287988</td>
+            </tr>
+            <tr>
+                <th>Sample Type:</th>
+                <td>metagenome</td>
+            </tr>
+            <tr>
+                <th>Barcode:</th>
+                <td>XBD</td>
+            </tr>
+        </table>
+    </details>
+    </div>
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Quality Control</summary>
+        <table class="data-table">
+                <th>Pre-QC:</th>
+                <th>Total reads:</th>
+                <td class="align-right">426790</td>
+                <tr>
+                <th></th>
+                <th>Total bases (Mbp):</th>
+                <td>5658</td>
+                </tr>
+                <tr>
+                <th></th>
+                <th>Total human reads:</th>
+                <td>17759</td>
+                </tr>
+                <th></th> 
+               <th>Read N<sub>50</sub> (bp)</th>
+                <td>16971</td>
+            </tr>
+            <tr>
+                <th>Post-QC:</th>
+                <th>Total reads:</th>
+                <td>351631</td>
+            </tr>
+                <th></th>
+                <th>Total bases (Mbp):</th>
+                <td>4516</td>
+            </tr>
+                <th></th>
+                <th>Median read length (bp)</th>
+                <td>8916</td>
+            </tr>
+                <th></th>
+                <th>Median read quality</th>
+                <td>18.60</td>
+            </tr>
+                <th></th>
+                <th>Read N<sub>50</sub> (bp)</th>
+                <td>16337</td>
+            </tr>
+        </table>
+    </details>
+    </div>
+    
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Taxonomic Summary - Targets only (Bracken / Kraken2) </summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Best hit (rank)</th>
+                <th>Number of reads</th>
+                <th>Proportion of sequencing reads (%)</th>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>139599</td>
+                <td>39.7</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>55801</td>
+                <td>15.87</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>38659</td>
+                <td>10.99</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>36969</td>
+                <td>10.51</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>29015</td>
+                <td>8.25</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria monocytogenes</em> (Species)</td>
+                <td>25210</td>
+                <td>7.17</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria innocua</em> (Species)</td>
+                <td>512</td>
+                <td>0.15</td>
+            </tr>
+            
+            <tr>
+                <td><em>Actinomyces oris</em> (Species)</td>
+                <td>115</td>
+                <td>0.03</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia albertii</em> (Species)</td>
+                <td>115</td>
+                <td>0.03</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella flexneri</em> (Species)</td>
+                <td>91</td>
+                <td>0.03</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria ivanovii</em> (Species)</td>
+                <td>81</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella dysenteriae</em> (Species)</td>
+                <td>79</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria welshimeri</em> (Species)</td>
+                <td>64</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia fergusonii</em> (Species)</td>
+                <td>52</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella boydii</em> (Species)</td>
+                <td>43</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella pneumoniae</em> (Species)</td>
+                <td>42</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria seeligeri</em> (Species)</td>
+                <td>41</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus cereus</em> (Species)</td>
+                <td>39</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella bongori</em> (Species)</td>
+                <td>33</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter braakii</em> (Species)</td>
+                <td>32</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus subtilis</em> (Species)</td>
+                <td>20</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella sonnei</em> (Species)</td>
+                <td>18</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter hormaechei</em> (Species)</td>
+                <td>12</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella quasipneumoniae</em> (Species)</td>
+                <td>10</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus faecium</em> (Species)</td>
+                <td>9</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter farmeri</em> (Species)</td>
+                <td>9</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella aerogenes</em> (Species)</td>
+                <td>7</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter freundii</em> (Species)</td>
+                <td>7</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter amalonaticus</em> (Species)</td>
+                <td>6</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Leclercia adecarboxylata</em> (Species)</td>
+                <td>6</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria grayi</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus cecorum</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter werkmanii</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella variicola</em> (Species)</td>
+                <td>4</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Vagococcus lutrae</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Streptococcus dysgalactiae</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cronobacter sakazakii</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus argenteus</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cedecea neteri</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella oxytoca</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus haemolyticus</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Lelliottia amnigena</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kluyvera cryocrescens</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus casseliflavus</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Raoultella ornithinolytica</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Burkholderia gladioli</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Taxonomic Summary - Full (Bracken / Kraken2) </summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Best hit (rank)</th>
+                <th>Number of reads</th>
+                <th>Proportion of sequencing reads (%)</th>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>139599</td>
+                <td>39.7</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>55801</td>
+                <td>15.87</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>38659</td>
+                <td>10.99</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>36969</td>
+                <td>10.51</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>29015</td>
+                <td>8.25</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria monocytogenes</em> (Species)</td>
+                <td>25210</td>
+                <td>7.17</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>20438</td>
+                <td>5.81</td>
+            </tr>
+            
+            <tr>
+                <td><em>Saccharomyces cerevisiae</em> (Species)</td>
+                <td>3830</td>
+                <td>1.09</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria innocua</em> (Species)</td>
+                <td>512</td>
+                <td>0.15</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria marthii</em> (Species)</td>
+                <td>167</td>
+                <td>0.05</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia albertii</em> (Species)</td>
+                <td>115</td>
+                <td>0.03</td>
+            </tr>
+            
+            <tr>
+                <td><em>Actinomyces oris</em> (Species)</td>
+                <td>115</td>
+                <td>0.03</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella flexneri</em> (Species)</td>
+                <td>91</td>
+                <td>0.03</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria ivanovii</em> (Species)</td>
+                <td>81</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella dysenteriae</em> (Species)</td>
+                <td>79</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria welshimeri</em> (Species)</td>
+                <td>64</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia marmotae</em> (Species)</td>
+                <td>59</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Homo sapiens</em> (Species)</td>
+                <td>53</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia fergusonii</em> (Species)</td>
+                <td>52</td>
+                <td>0.02</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella boydii</em> (Species)</td>
+                <td>43</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella pneumoniae</em> (Species)</td>
+                <td>42</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria seeligeri</em> (Species)</td>
+                <td>41</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus cereus</em> (Species)</td>
+                <td>39</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella bongori</em> (Species)</td>
+                <td>33</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter braakii</em> (Species)</td>
+                <td>32</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia sp. E4742</em> (Species)</td>
+                <td>29</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus wiedmannii</em> (Species)</td>
+                <td>25</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus subtilis</em> (Species)</td>
+                <td>20</td>
+                <td>0.01</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shigella sonnei</em> (Species)</td>
+                <td>18</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus sp. CoE-012-22</em> (Species)</td>
+                <td>14</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Lactococcus paracarnosus</em> (Species)</td>
+                <td>14</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter hormaechei</em> (Species)</td>
+                <td>12</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella quasipneumoniae</em> (Species)</td>
+                <td>10</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus vallismortis</em> (Species)</td>
+                <td>9</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter farmeri</em> (Species)</td>
+                <td>9</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus faecium</em> (Species)</td>
+                <td>9</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter sp. S171</em> (Species)</td>
+                <td>8</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella aerogenes</em> (Species)</td>
+                <td>7</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus stercoris</em> (Species)</td>
+                <td>7</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter freundii</em> (Species)</td>
+                <td>7</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Leclercia adecarboxylata</em> (Species)</td>
+                <td>6</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria weihenstephanensis</em> (Species)</td>
+                <td>6</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter portucalensis</em> (Species)</td>
+                <td>6</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter amalonaticus</em> (Species)</td>
+                <td>6</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus cecorum</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia ruysiae</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus velezensis</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter sp. JUb54</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter werkmanii</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria grayi</em> (Species)</td>
+                <td>5</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella huaxiensis</em> (Species)</td>
+                <td>4</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter sp. SA187</em> (Species)</td>
+                <td>4</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kluyvera intermedia</em> (Species)</td>
+                <td>4</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter sp. RHB25-C09</em> (Species)</td>
+                <td>4</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus schweitzeri</em> (Species)</td>
+                <td>4</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella variicola</em> (Species)</td>
+                <td>4</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cronobacter sakazakii</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Vagococcus lutrae</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudocitrobacter corydidari</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Trabulsiella odontotermitis</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cedecea neteri</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus roterodami</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia arachidis</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Raoultella electrica</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Streptococcus dysgalactiae</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Carnobacterium maltaromaticum</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella oxytoca</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia sp. SCLE84</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus argenteus</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter roggenkampii</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia sp. ML.JS2a</em> (Species)</td>
+                <td>3</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Burkholderia gladioli</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus haemolyticus</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Halobacillus mangrovi</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. PS1(2021)</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. CFSAN084952</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus inaquosorum</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus tequilensis</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus amyloliquefaciens</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas solani</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Listeria newyorkensis</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus atrophaeus</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia oryzae</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia oryzendophytica</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kluyvera cryocrescens</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Saccharomyces paradoxus</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter sichuanensis</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter chengduensis</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Saccharomyces kudriavzevii</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter tructae</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter sp. S-33</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Saccharomyces mikatae</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia sp. MUSA4</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Raoultella ornithinolytica</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus casseliflavus</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Lelliottia amnigena</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Lelliottia sp. AC1</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Jejubacter calystegiae</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia sp. HH154_1D</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia sp. HH091_1A</em> (Species)</td>
+                <td>2</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus cohnii</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Dactylosporangium roseum</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus simiae</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kluyveromyces lactis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Staphylococcus saccharolyticus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Sugiyamaella lignohabitans</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Virgibacillus pantothenticus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Jeotgalibaca dankookensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Mycobacterium sp. JS623</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cellulomonas fimi</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Halobacillus halophilus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Floricoccus penangensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Streptococcus agalactiae</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Brettanomyces bruxellensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus saccharolyticus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterococcus avium</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Paenibacillus lycopersici</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Bacillus arachidis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Viridibacillus sp. JNUCC-6</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Colletotrichum higginsianum</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas nitroreducens</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Nitratireductor sp. OM-1</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Simplicispira suum</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Buttiauxella sp. WJP83</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>secondary endosymbiont of Heteropsylla cubana</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Blochmannia endosymbiont of Camponotus sp. C-003</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cedecea sp. FDAARGOS_727</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cronobacter condimenti</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Cronobacter dublinensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia pseudosacchari</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia sacchari</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Kosakonia sp. CCTCC M2018092</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter mori</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter sp. RHBSTW-00994</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter sp. C2</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter sp. CP102</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter chuandaensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter ludwigii</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Enterobacter cancerogenus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Raoultella terrigena</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Klebsiella grimontii</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter pasteurii</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter rodentium</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter koseri</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Citrobacter sp. R56</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Escherichia sp. KS167_9B</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella sp. SCFS4</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella sp. 3C</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella sp. 2018103</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Salmonella sp. SA14318</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Buttiauxella sp. R73</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Candidatus Moranella endobia</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Shimwellia blattae</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sihuiensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Diaphorobacter aerolatus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Delftia acidovorans</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Variovorax paradoxus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Aeromonas dhakensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Xanthomonas arboricola</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Stenotrophomonas maltophilia</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Stenotrophomonas sp. BIO128-Bstrain</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Halomonas chromatireducens</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Halomonas tianxiuensis</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Halomonas sp. YLGW01</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas psychrotolerans</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas syringae group genomosp. 3</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas alloputida</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>[Enterobacter] lignolyticus</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas oryzihabitans</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. 273</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. B21-036</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. LG1E9</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. StFLB209</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. SO81</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. CYM-20-01</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Pseudomonas sp. MSPm1</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Yokenella regensburgei</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Scandinavium goeteborgense</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Plesiomonas shigelloides</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Superficieibacter sp. HKU1</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+            <tr>
+                <td><em>Halorussus sp. YCN54</em> (Species)</td>
+                <td>1</td>
+                <td>0.0</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Assembly Summary</summary>
+        <table class="data-table">
+            <tr>
+                <th>Assembly size (Mb):</th>
+                <td class="align-right">40.05</td>
+            </tr>
+            <tr>
+                <th>Number of contigs:</th>
+                <td>87</td>
+            </tr>
+            <tr>
+                <th>Contig N<sub>50</sub> (bp):</th>
+                <td>4045616</td>
+            </tr>
+            <tr>
+                <th>Contigs assigned species-level taxonomy (%):</th>
+                <td>14.94</td>
+            </tr>
+        </table>
+    </details>
+    </div>
+    
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Binning Summary</summary>
+        <table class="data-table">
+            <tr>
+                <th>Number of bins:</th>
+                <td class="align-right">7</td>
+            </tr>
+            <tr>
+                <th>Bases assigned to bin (%):</th>
+                <td>72.2</td>
+            </tr>
+            <tr>
+                <th>Contigs assigned to bin (%):</th>
+                <td>8.05</td>
+            </tr>
+            <tr>
+                <th>Bins assigned taxonomy (Species / Genus / Family / unclassified %):</th>
+                <td>100.0 / 0.0 / 0.0 / 0.0</td>
+            </tr>
+            <tr>
+                <th>Bins quality (High quality / medium quality / partial assembly / QC fail %):</th>
+                <td>100.0 / 0.0 / 0.0 / 0.0</td>
+            </tr>
+        </table>
+    </div>
+   </details>
+   
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Bin Quality Control</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment (rank)</th>
+                <th>GC (%)</th>
+                <th>Assembly size (Mb)</th>
+                <th>Contigs (count)</th>
+                <th>CheckM: Completeness (%) (Contamination (%))</th>
+                <th>Bin quality</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em> (Species)</td>
+                <td>37.95</td>
+                <td>2.99</td>
+                <td>1</td>
+                <td>99.45 (0.0)</td>
+                <td>High quality</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td><em>Bacillus spizizenii</em> (Species)</td>
+                <td>43.94</td>
+                <td>4.05</td>
+                <td>1</td>
+                <td>99.75 (0.15)</td>
+                <td>High quality</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td><em>Salmonella enterica</em> (Species)</td>
+                <td>52.18</td>
+                <td>4.76</td>
+                <td>1</td>
+                <td>99.71 (0.04)</td>
+                <td>High quality</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em> (Species)</td>
+                <td>50.58</td>
+                <td>4.76</td>
+                <td>1</td>
+                <td>98.78 (0.14)</td>
+                <td>High quality</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td><em>Pseudomonas aeruginosa</em> (Species)</td>
+                <td>66.17</td>
+                <td>6.79</td>
+                <td>1</td>
+                <td>99.68 (0.61)</td>
+                <td>High quality</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td><em>Enterococcus faecalis</em> (Species)</td>
+                <td>37.52</td>
+                <td>2.85</td>
+                <td>1</td>
+                <td>99.63 (0.19)</td>
+                <td>High quality</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td><em>Staphylococcus aureus</em> (Species)</td>
+                <td>32.86</td>
+                <td>2.72</td>
+                <td>1</td>
+                <td>99.36 (0.08)</td>
+                <td>High quality</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Sequence Typing (bins)</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Scheme</th>
+                <th>Sequence type</th>
+                <th>Clonal complex</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td>listeria_2</td>
+                <td>449</td>
+                <td>CC1</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td>bsubtilis</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td>senterica_achtman_2</td>
+                <td>139</td>
+                <td>6</td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td>ecoli_achtman_4</td>
+                <td>10</td>
+                <td>CC10</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td>paeruginosa</td>
+                <td>Unknown</td>
+                <td>Unknown</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td>efaecalis</td>
+                <td>55</td>
+                <td>Unknown</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td>saureus</td>
+                <td>9</td>
+                <td>CC9</td>
+            </tr>
+            
+        </table>
+
+    </details>
+    </div>
+    
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Target Genes (bins)</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Taxonomic assignment</th>
+                <th>Genes identified</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td><em>Listeria monocytogenes_B</em></td>
+                <td><em>actA, AgrA, biLE, bsh, btlB, chiA, clpB, clpc, clpe, clpp, codY, ctaP, ctsR, dal, degU, dltA, fbpA, FlaA, FlgC, FlgE, fri, fur, GadB, GadC, Gmar, hfq, hly, htrA, hupC, iap, inlA, inlB, inlC, inlH, inlJ, Lap, LapB, lgt, lhrC, lipA, lisR, llsA, llsB, llsD, llsG, llsH, llsP, llsX, llsY, lmo0514, lmo2085, lntA, lpeA, lplA1, lsp, mogR, mpl, mprf, murA, OatA, OppA, ORF2110, ORF2819, OrfX, OrfZ, perR, pgdA, pgl, plcA, plcB, prfA, prs, prsA2, pycA, recA, relA, Rli55, Rli60, Rsbv, secA2, sigB, sipX, sipZ, sod, srtA, srtB, stp, svpA, tcsA, tig, uHpt, virR</em></td>
+            </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td><em>Escherichia coli</em></td>
+                <td><em>aaiC, aer, agn43, AslA, csgA, csgB, csgC, csgD, csgE, csgF, csgG, ecpA, fdeC, fimH, fliC_H32, gad, gtrIc_, hlyE, ibeB, ibeC, iha, iss, iucA, iucB, iucC, iutA, matA, mchB, mchC, mchF, mutS, nlpI, pic, sat, shiA, sitA, terC, upaC, wzx_O33, wzxC1to5_, wzxE1to5_, wzy_O33, yehA, yehB, yehC, yehD, yjaA</em></td>
+            </tr>
+            
+        </table>
+
+    </details>
+    </div>
+    
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title">Antimicrobial Resistance (bins)</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Database (version)</th>
+                <th>Tool (version)</th>
+                <th>Genes identified</th>
+                <th>Drug class</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>fosX</em></td>
+                <td>Fosfomycin</td>
+            </tr>
+            
+            <tr>
+                <td>000002</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>mph(K)</em></td>
+                <td>Spiramycin, Telithromycin</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td>pointfinder (4.1.0)</td>
+                <td>PointFinder (4.1.0)</td>
+                <td><em>parC</em></td>
+                <td>Nalidixic Acid, Ciprofloxacin</td>
+            </tr>
+            
+            <tr>
+                <td>000003</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>aac(6')-Iaa</em></td>
+                <td>Amikacin, Tobramycin</td>
+            </tr>
+            
+            <tr>
+                <td>000005</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>aph(3')-IIb, blaOXA-486, blaPAO, catB7, crpP, fosA, tmexD2</em></td>
+                <td>Unknown Aminoglycoside, Kanamycin, Neomycin, Paromomycin, Ribostamycin, Butiromycin, Gentamicin, Unknown Beta-lactam, Amoxicillin, Ampicillin, Cefepime, Ceftazidime, Chloramphenicol, Ciprofloxacin, Fosfomycin, Doxycycline, Tetracycline, Minocycline, Tigecycline</td>
+            </tr>
+            
+            <tr>
+                <td>000006</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>lsa(A)</em></td>
+                <td>Lincomycin, Clindamycin, Dalfopristin, Pristinamycin IIA, Virginiamycin M</td>
+            </tr>
+            
+            <tr>
+                <td>000007</td>
+                <td>resfinder (2.3.2)</td>
+                <td>ResFinder (2.3.2)</td>
+                <td><em>blaZ</em></td>
+                <td>Amoxicillin, Ampicillin, Penicillin, Piperacillin</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title"><em>Escherichia coli / Shigella</em> typing (bins)</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Classification</th>
+                <th>Consensus serotype(s)</th>
+                <th>Consensus <em>ipaH</em></th>
+                <th><em>ipaB</em> (Shigatyper)</th>
+                <th>Virulence plasmids (Shigeifinder)</th>
+                <th><em>stx</em> type (STECFinder)</th>
+           </tr>
+            
+            <tr>
+                <td>000004</td>
+                <td>Unknown</td>
+                <td>O33:H32</td>
+                <td>-</td>
+                <td>-</td>
+                <td>0</td>
+                <td>-</td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    
+
+
+    
+    <div class="section">
+     <details open>
+     <summary class="section-title"><em>Listeria monocytogenes</em> Typing (bins)</summary>
+        <table class="data-table">
+            <tr class="taxonomy-header">
+                <th>Bin</th>
+                <th>Serotype</th>
+                <th><em>prs</em></th>
+                <th><em>lmo0737</em></th>
+                <th><em>lmo1118</em></th>
+                <th><em>ORF2110</em></th>
+                <th><em>ORF2819</em></th>
+                <th>Comments</th>
+           </tr>
+            
+            <tr>
+                <td>000001</td>
+                <td>4b, 4d, 4e</td>
+                <td>Full</td>
+                <td>None</td>
+                <td>None</td>
+                <td>Full</td>
+                <td>Full</td>
+                <td></td>
+            </tr>
+            
+        </table>
+    </details>
+    </div>
+    
+
+    <p class="disclaimer"> <font color="#8B0000">Not a validated test. For research use only</font></p>
+</body>
+</html>
