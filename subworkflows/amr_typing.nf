@@ -5,7 +5,6 @@
 include { AMRFINDERPLUS_RUN } from '../modules/local/amrfinderplus/run/main'
 include { ABRICATE_RUN } from '../modules/nf-core/abricate/run/main'
 include { RESFINDER } from '../modules/local/resfinder/run/main'
-//include { ABRITAMR_RUN } from '../modules/nf-core/abritamr/run/main'                                                                                                                                              
 include { RGI_MAIN } from '../modules/local/rgi/main/main'                                                                                                                                                      
 include { HAMRONIZATION_ABRICATE } from '../modules/local/hamronization/abricate/main'                                                                                                                          
 include { HAMRONIZATION_RGI } from '../modules/local/hamronization/rgi/main'                                                                                                                                    
