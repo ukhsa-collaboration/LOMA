@@ -37,8 +37,9 @@ def process_mlst(mlst_results, sample_name, bin):
 				(mlst['mlst: Scheme'] == 'vparahaemolyticus'),
 				(mlst['mlst: Scheme'] == 'campylobacter'),
 				(mlst['mlst: Scheme'] == 'yersinia_mcnally'),
+				(mlst['mlst: Scheme'] == 'paeruginosa'),
 			]
-			values = ['escherichia-coli','salmonella','listeria','vibrio-cholerae','vibrio-parahaemolyticus','campylobacter-jejuni-group','yersinia' ]
+			values = ['escherichia-coli','salmonella','listeria','vibrio-cholerae','vibrio-parahaemolyticus','campylobacter-jejuni-group','yersinia','paeruginosa']
 			mlst['Internal UKHSA: Scheme'] = np.select(conditions, values)
 			mlst.insert(0, 'Sample bin', bin)
 			mlst.insert(0, 'Name', sample_name)
@@ -65,8 +66,9 @@ def process_krocus(krocus_results, sample_name, bin, scheme):
 			(krocus['krocus: Scheme'] == 'Vibrio parahaemolyticus'),
 			(krocus['krocus: Scheme'] == 'Campylobacter jejuni'),
 			(krocus['krocus: Scheme'] == 'Yersinia spp.'),
+			(krocus['krocus: Scheme'] == 'Pseudomonas aeruginosa'),
 		]
-		values = ['escherichia-coli','salmonella','listeria','vibrio-cholerae','vibrio-parahaemolyticus','campylobacter-jejuni-group','yersinia']
+		values = ['escherichia-coli','salmonella','listeria','vibrio-cholerae','vibrio-parahaemolyticus','campylobacter-jejuni-group','yersinia','paeruginosa']
 		krocus['Internal UKHSA: Scheme'] = np.select(conditions, values)
 		krocus.insert(0, 'Sample bin', bin)
 		krocus.insert(0, 'Name', sample_name)
