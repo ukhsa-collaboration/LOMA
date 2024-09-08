@@ -14,8 +14,6 @@
 Updates:
 - Genefinder and BLAST functionality has temporarily been removed while the input data file format is changed.
 - Docker and Apptainer will be supported but have not been fully tested on our systems.
-- Input file formats will be switched to CSV format with headers required, for consistency with the short-read pipeline.
-- The wiki is currently being written. 
 
 # Table of contents 
 * [Introduction](#Introduction)
