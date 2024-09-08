@@ -224,16 +224,8 @@ Further tips for optimization can be found on the **[wiki](https://github.com/uk
 
 # Troubleshooting and errors  <a name="troubleshoot"></a>
 
-### How to identify issues
-Input errors, for example missing FASTQ files, or incorrectly formatted input files, should get flagged at the start of the pipeline and return an error identifying the problem.
+Advice on how to identify, diagnose and fix errors can be found on the **[wiki](https://github.com/ukhsa-collaboration/LOMA/wiki/5\).-Troubleshooting#errors)**.
 
-Errors in individual process will be flagged with an error by Nextflow.
-
-### Possible errors
-Certain Nanopore read sets base called with Dorado have caused errors with Porechop - reads split on internal adapters are not renamed correctly, leading to duplicate read names. This can be fixed by discarding reads with internal adapters, by including the following parameter in your command. 
-```
-  --PORECHOP_PORECHOP.args="--discard_middle"
-```
 
 
 
