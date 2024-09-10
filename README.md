@@ -195,31 +195,6 @@ However, a quicker approach is to only polish the MAGs of interest. This can be 
 ```
   --BIN_TAXONOMY.medaka_mag                       Polish individual metagenome assembled genomes with Medaka.
 ```
-### Adjust RAM/CPU usage
-
-Depending on your available computing resources, it may be necessary to change the preset resource usage defaults. The max RAM and CPU usage can be changed with command line arguements as follows:
-```
-  --max_cpus 24                                   Maximum number of CPUs that can be requested for any single job. [default: 36]
-  --max_memory "80.GB"                            Maximum amount of memory that can be requested for any single job. [default: 90.GB]
-```
-If you are finding that you are running out of memory, or if you have limited swap memory, it's possible to alter the preset resource usages for individual processes in [`conf/base.config`](https://github.com/ukhsa-collaboration/LOMA/blob/main/conf/base.config). By raising the RAM and CPU requirements for intensive processes to make the requirements >50% of the total CPU/RAM allocation, you can stop LOMA from running multiple intensive jobs simultaneously. 
-
-Specifically, in the section:
-```
-withLabel:process_high {
-   cpus   = { check_max( 22    * task.attempt, 'cpus'    ) }
-   memory = { check_max( 86.GB * task.attempt, 'memory'  ) }
-   time   = { check_max( 16.h  * task.attempt, 'time'    ) }
-}
-```
-
-### Other parameters
-
-Skip geNomad neural network-based classification, this will reduce runtime at the cost of accuracy:
-```
-  --GENOMAD_ENDTOEND.args="--disable-nn-classification"
-```
-
 Further tips for optimization can be found on the **[wiki](https://github.com/ukhsa-collaboration/LOMA/wiki/3\).-Running#reducing-runtime-)**.
 
 # Troubleshooting and errors  <a name="troubleshoot"></a>
