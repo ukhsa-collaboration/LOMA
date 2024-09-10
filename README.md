@@ -21,7 +21,7 @@ Updates:
 * [Installation](#install)
 * [Running](#run)
 * [Output](#output)
-* [Tips for improving speed and efficiency](#tips)
+* [Improving speed and efficiency](#tips)
 * [Troubleshooting and errors](#troubleshoot)
 
 # Introduction <a name="Introduction"></a>
@@ -164,7 +164,7 @@ LOMA outputs can be grouped into two major categories:
     <img src="docs/images/loma_html_results.png" alt="loma html" width="90%">
 </p>
 
-# Tips for improving speed and efficiency  <a name="tips"></a>
+# Improving speed and efficiency  <a name="tips"></a>
 
 ### Skipping major analysis steps
 
