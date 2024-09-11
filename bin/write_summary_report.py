@@ -54,8 +54,8 @@ def process_readqc(read_qc_stats, hostreads_list):
 		'total_human_reads' : int(len(hostreads)),
 		'pre_read_n50_bp' : int(readqc['Pre-QC'].iloc[4]),
 		'read_n50_bp' : int(readqc['Post-QC'].iloc[4]),
-		'total_bases_mb' : round((int(readqc['Post-QC'].iloc[7])/100000),2) ,
-		'total_bases_pre_qc' : round((int(readqc['Pre-QC'].iloc[7])/100000),2) ,
+		'total_bases_mb' : round((int(readqc['Post-QC'].iloc[7])),2) ,
+		'total_bases_pre_qc' : round((int(readqc['Pre-QC'].iloc[7])),2) ,
 		'median_read_length_bp' : int(readqc['Post-QC'].iloc[2]),
 		'median_read_quality_x' : '{:.2f}'.format(readqc['Post-QC'].iloc[6]),
 	}
