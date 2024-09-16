@@ -128,7 +128,7 @@ def process_checkm(checkm_metrics):
 	conditions = [
 		(checkm['Completeness'] == 'NaN'),
 		(checkm['Completeness'] >= 90) & (checkm['Contamination'] <= 5),
-		(checkm['Completeness'] >= 90) & (checkm['Contamination'] > 5),
+		(checkm['Completeness'] >= 90) & (checkm['Contamination'] > 5) & (checkm['Contamination'] <= 10),
 		(checkm['Completeness'] >= 70) & (checkm['Completeness'] < 90) & (checkm['Contamination'] <= 10),
 		(checkm['Completeness'] >= 50) & (checkm['Completeness'] < 70) & (checkm['Contamination'] <= 10),
 		(checkm['Completeness'] <= 50),
