@@ -4,7 +4,7 @@ process FILTLONG {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/filtlong:0.2.1--h9a82719_0' :
+        'quay.io/biocontainers/filtlong:0.2.1--h9a82719_0' :
         'https://depot.galaxyproject.org/singularity/filtlong:0.2.1--h9a82719_0' }"
 
     input:
