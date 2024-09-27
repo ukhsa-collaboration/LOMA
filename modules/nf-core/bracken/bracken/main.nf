@@ -4,7 +4,7 @@ process BRACKEN_BRACKEN {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/bracken:2.9--py38h2494328_0' : 
+        'quay.io/biocontainers/bracken:2.9--py38h2494328_0' : 
         'https://depot.galaxyproject.org/singularity/bracken:2.9--py38h2494328_0' }"
 
     input:
