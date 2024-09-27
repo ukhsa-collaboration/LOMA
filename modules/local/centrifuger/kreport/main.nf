@@ -2,10 +2,9 @@ process CENTRIFUGER_KREPORT {
     tag "$meta.id"
     label 'process_medium'
 
-    conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/centrifuger:1.0.0--hdcf5f25_0' :
-        'biocontainers/centrifuger:1.0.0--hdcf5f25_0' }"
+        'biocontainers/centrifuger:1.0.3--hdcf5f25_0' :
+        'https://depot.galaxyproject.org/singularity/centrifuger:1.0.3--hdcf5f25_0' }"
 
     input:
     tuple val(meta), path(results)
