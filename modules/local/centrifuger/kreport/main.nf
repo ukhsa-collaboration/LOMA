@@ -3,7 +3,7 @@ process CENTRIFUGER_KREPORT {
     label 'process_medium'
 
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/centrifuger:1.0.3--hdcf5f25_0' :
+        'quay.io/biocontainers/centrifuger:1.0.3--hdcf5f25_0' :
         'https://depot.galaxyproject.org/singularity/centrifuger:1.0.3--hdcf5f25_0' }"
 
     input:
