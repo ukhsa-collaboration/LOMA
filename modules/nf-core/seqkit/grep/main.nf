@@ -4,7 +4,7 @@ process SEQKIT_GREP {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/seqkit:2.8.2--h9ee0642_0' : 
+        'quay.io/biocontainers/seqkit:2.8.2--h9ee0642_0' : 
         'https://depot.galaxyproject.org/singularity/seqkit:2.8.2--h9ee0642_0' }"
 
     input:
