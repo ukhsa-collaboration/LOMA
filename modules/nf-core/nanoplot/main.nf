@@ -4,7 +4,7 @@ process NANOPLOT {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/nanoplot:1.41.6--pyhdfd78af_0' :
+        'quay.io/biocontainers/nanoplot:1.41.6--pyhdfd78af_0' :
         'https://depot.galaxyproject.org/singularity/nanoplot:1.41.6--pyhdfd78af_0' }"
 
     input:
