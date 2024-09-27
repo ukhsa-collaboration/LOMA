@@ -4,7 +4,7 @@ process SEQTK_FQCHK {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/seqtk:1.4--he4a0461_1' : 
+        'quay.io/biocontainers/seqtk:1.4--he4a0461_1' : 
         'https://depot.galaxyproject.org/singularity/seqtk:1.4--he4a0461_1' }"
 
     input:
