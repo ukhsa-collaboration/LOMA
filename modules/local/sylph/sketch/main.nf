@@ -4,8 +4,8 @@ process SYLPH_SKETCH {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'quay.io/biocontainers/sylph@sha256:781d32f6e29a5ef8140f0f459f645525f43d021d0b5388e6caf2071d2e33ffd4':
-        'biocontainers/sylph:0.6.1--h4ac6f70_0' }"
+        'biocontainers/sylph:0.6.1--h4ac6f70_0' :
+        'quay.io/biocontainers/sylph@sha256:781d32f6e29a5ef8140f0f459f645525f43d021d0b5388e6caf2071d2e33ffd4' }"
 
     input:
     tuple val(meta), path(input)
