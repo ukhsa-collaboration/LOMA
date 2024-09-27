@@ -4,7 +4,7 @@ process TAXPASTA_STANDARDISE {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/taxpasta:0.6.1--pyhdfd78af_0' :
+        'quay.io/biocontainers/taxpasta:0.6.1--pyhdfd78af_0' :
         'https://depot.galaxyproject.org/singularity/taxpasta:0.6.1--pyhdfd78af_0' }"
 
     input:
