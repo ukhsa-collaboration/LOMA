@@ -4,7 +4,7 @@ process FILTER_MAPPED {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/samtools:1.20--h50ea8bc_0' : 
+        'quay.io/biocontainers/samtools:1.20--h50ea8bc_0' : 
         'https://depot.galaxyproject.org/singularity/samtools:1.20--h50ea8bc_0' }"
 
     input:
