@@ -4,7 +4,7 @@ process PORECHOP_PORECHOP {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'biocontainers/porechop:0.2.4--py39h7cff6ad_2'  :
+        'quay.io/biocontainers/porechop:0.2.4--py39h7cff6ad_2'  :
         'https://depot.galaxyproject.org/singularity/porechop:0.2.4--py39h7cff6ad_2' }"
 
     input:
