@@ -4,14 +4,13 @@ process FILTER_MAPPED {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/samtools:1.20--h50ea8bc_0' :
-        'biocontainers/samtools:1.20--h50ea8bc_0' }"
+        'biocontainers/samtools:1.20--h50ea8bc_0' : 
+        'https://depot.galaxyproject.org/singularity/samtools:1.20--h50ea8bc_0' }"
 
     input:
     tuple val(meta), path(bam)
 
     output:
-//    tuple val(meta), path("*.fastq.gz"), optional: true, emit: reads
     tuple val(meta), path("*.minimap2.human_reads.txt"), optional: true, emit: read_list
     path "versions.yml"           , emit: versions
 
