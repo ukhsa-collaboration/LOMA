@@ -23,7 +23,7 @@ workflow AMR_TYPING {
     ch_versions = Channel.empty()
     ch_amr_summarize = Channel.empty()
 
-    AMRFINDERPLUS_RUN(ch_assembly, [])
+    AMRFINDERPLUS_RUN(ch_assembly)
     ch_versions = ch_versions.mix(AMRFINDERPLUS_RUN.out.versions) 
 
     HAMRONIZATION_AMRFINDERPLUS(AMRFINDERPLUS_RUN.out.report, "tsv", params.AMRFINDERPLUS_RUN.software_version, params.AMRFINDERPLUS_RUN.db_version)
