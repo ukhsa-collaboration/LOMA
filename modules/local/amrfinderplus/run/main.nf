@@ -9,7 +9,6 @@ process AMRFINDERPLUS_RUN {
 
     input:
     tuple val(meta), path(fasta)
-    path(db)
 
     output:
     tuple val(meta), path("${prefix}.tsv")          , emit: report
@@ -22,7 +21,6 @@ process AMRFINDERPLUS_RUN {
     script:
     def args = task.ext.args ?: ''
     def is_compressed_fasta = fasta.getName().endsWith(".gz") ? true : false
-    def is_compressed_db = db.getName().endsWith(".gz") ? true : false
     prefix = task.ext.prefix ?: "${meta.id}"
 
     organism_param = !(meta.amfr.matches("")) ? "--organism ${meta.amfr} --mutation_all ${prefix}-mutations.tsv" : ""
@@ -44,6 +42,5 @@ process AMRFINDERPLUS_RUN {
     cat <<-END_VERSIONS > versions.yml
 "${task.process}":
     amrfinderplus: \$(amrfinder --version)
-    amrfinderplus-database: \$(echo \$(echo \$(amrfinder --database $db --database_version 2> stdout) | rev | cut -f 1 -d ' ' | rev))
     """
 }
