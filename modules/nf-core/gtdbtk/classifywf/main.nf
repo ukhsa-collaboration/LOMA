@@ -78,7 +78,7 @@ process GTDBTK_CLASSIFYWF {
     """
 
     stub:
-    def VERSION = '2.3.2' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
+    def VERSION = '2.4.0' // WARN: Version information not provided by tool on CLI. Please update this string when bumping container versions.
     prefix = task.ext.prefix ?: "${meta.id}"
     """
     touch gtdbtk.${prefix}.stub.summary.tsv
