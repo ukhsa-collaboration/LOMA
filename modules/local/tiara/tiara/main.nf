@@ -5,8 +5,8 @@ process TIARA_TIARA {
     // WARN: Version information not provided by tool on CLI. Please update version string below when bumping container versions.
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/tiara:1.0.3' :
-        'biocontainers/tiara:1.0.3' }"
+        'quay.io/biocontainers/tiara:1.0.3' :
+        'https://depot.galaxyproject.org/singularity/tiara:1.0.3' }"
 
     input:
     tuple val(meta), path(fasta)
