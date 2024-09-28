@@ -2,6 +2,10 @@ process FETCH_SEQSUM {
     tag "$meta"
     label 'process_low'
 
+    container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
+        'quay.io/djberger/lma_img:latest' :
+        'quay.io/djberger/lma_img:latest' }"
+
     input:
     val(meta)
 
