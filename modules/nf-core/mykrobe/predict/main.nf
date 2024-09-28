@@ -4,8 +4,8 @@ process MYKROBE_PREDICT {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/mykrobe:0.13.0--py39h0163359_0' :
-        'biocontainers/mykrobe:0.13.0--py39h0163359_0' }"
+        'quay.io/biocontainers/mykrobe:0.13.0--py39h0163359_0' :
+        'https://depot.galaxyproject.org/singularity/mykrobe:0.13.0--py39h0163359_0' }"
 
     input:
     tuple val(meta), path(seqs)
