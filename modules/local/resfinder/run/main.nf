@@ -5,7 +5,7 @@ process RESFINDER {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'docker://genomicepidemiology/resfinder:4.5.0' :
-        'biocontainers/resfinder:4.5.0--pyhdfd78af_0' }"
+        'quay.io/biocontainers/resfinder:4.5.0--pyhdfd78af_0' }"
 
     input:
     tuple val(meta), path(assembly)
