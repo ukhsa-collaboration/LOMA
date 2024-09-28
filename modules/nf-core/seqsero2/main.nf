@@ -4,8 +4,8 @@ process SEQSERO2 {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/seqsero2:1.3.1--pyhdfd78af_1' :
-        'biocontainers/seqsero2:1.3.1--pyhdfd78af_1' }"
+        'quay.io/biocontainers/seqsero2:1.3.1--pyhdfd78af_1' :
+        'https://depot.galaxyproject.org/singularity/seqsero2:1.3.1--pyhdfd78af_1' }"
 
     input:
     tuple val(meta), path(seqs)
