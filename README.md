@@ -30,7 +30,7 @@ LOMA is a Nextflow pipeline designed to comprehensively assess metagenomic sampl
 
 The pipeline has two primary approaches to analysis:\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**1). Read-based taxonomic classification** - assign a taxonomic designation to individual sequencing reads.\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2). Metagenome assembly** - assemble and perform *in silico* typing typing of metagenome assembled genomes
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**2). Metagenome assembly** - assemble and perform *in silico* typing typing of metagenome assembled genomes.
 
 A general overview is provided below. Detailed guidance on the installation, usage and function of LOMA can be found in the **[wiki](https://github.com/ukhsa-collaboration/LOMA/wiki)**, example outputs can be found **[here](https://github.com/ukhsa-collaboration/LOMA/blob/main/examples/results/)**.
 
@@ -69,18 +69,18 @@ Step by step instructions for installation and initital runs can be found on the
 - A container runtime, currently only [Singularity](https://sylabs.io/singularity/) is supported.
 
 ### Hardware
-- A POSIX-compatible system (Linux, macOS, etc) or Windows through [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux)
+- A POSIX-compatible system (Linux, macOS, etc) or Windows through [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux).
 - At least 16GB of RAM.
-- At least 100 GB of storage
+- At least 100 GB of storage.
   > ℹ️ Storage requirements
   > - The pipeline installation requires 100 Mb of storage.
-  > - Combined the default databases use 120 GB of storage
+  > - Combined the default databases use 120 GB of storage.
   > - Containers require a total of 11 GB of storage.
   > - The pipeline generates a variable number/size of input files, depending on input size and quality. Generally this ranges from 30-60 Gb. 
   > - The pipeline output generates ~200 Mb of output files per-sample.
 
 ### Databases
-- Mandatory: A host reference database (genome assembly and/or Kraken2 database)
+- Mandatory: A host reference database (genome assembly and/or Kraken2 database).
 - Optional: Up to 14 databases containing relevant reference datasets. 
   > ℹ️ Optional databases
   > - If optional databases are not installed the pipeline will still run without error but the associated stages will be skipped. 
