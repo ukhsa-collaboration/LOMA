@@ -4,8 +4,8 @@ process VIRULENCEFINDER {
 
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
-        'https://depot.galaxyproject.org/singularity/virulencefinder%3A2.0.4--hdfd78af_0' :
-        'docker://quay.io/biocontainers/virulencefinder:2.0.4--hdfd78af_0' }"
+        'quay.io/biocontainers/virulencefinder:2.0.4--hdfd78af_0' :
+        'https://depot.galaxyproject.org/singularity/virulencefinder%3A2.0.4--hdfd78af_0'  }"
 
     input:
     tuple val(meta), path(assembly)
