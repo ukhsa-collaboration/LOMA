@@ -5,7 +5,7 @@ process SKANI_SEARCH {
     conda "${moduleDir}/environment.yml"
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
         'docker://quay.io/biocontainers/skani:0.2.1--h4ac6f70_0' :
-        'biocontainers/biocontainers/skani:0.2.1--h4ac6f70_0' }"
+        'quay.io/biocontainers/skani:0.2.1--h4ac6f70_0' }"
 
     input:
     tuple val(meta), path(fasta)
