@@ -25,7 +25,7 @@ def filter_gtdbtk(input_file, output_file, ANI_cutoff, align_fraction_cutoff, gt
 	merged_gtdbtk = gtdbtk_results.merge(gtdb_defs, left_on='classification', right_on='Original_ID').fillna('').astype(str)
 	merged_gtdbtk = merged_gtdbtk[merged_gtdbtk["Target"] == 'Y'] # Subset only target species/assemblies
 	merged_gtdbtk['fixed_id'] = merged_gtdbtk[['Clean_ID']].astype(str).replace(' ', '_',regex=True)
-	print(merged_gtdbtk)
+
 	if mode == "Nanopore":
 		merged_gtdbtk['outstring'] = merged_gtdbtk[['user_genome', 'fixed_id','AMRFINDER','RESFINDER','MLST','KROCUS','gene_DB']].apply(lambda x: '.'.join(x), axis=1).replace(' ', '~', regex=True) + '.fasta' # Define output file name (to pass relevant metadata to channel)
 	if mode == "Illumina":
