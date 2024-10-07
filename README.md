@@ -67,8 +67,7 @@ Step by step instructions for installation and initital runs can be found on the
 ### Software 
 - [Nextflow](https://www.nextflow.io/docs/latest/install.html).
 - [Java 11 (or later, up to 22)](http://www.oracle.com/technetwork/java/javase/downloads/index.html) (required for Nextflow)
-- A container runtime, currently only [Singularity](https://sylabs.io/singularity/) is supported.
-
+- A container runtime, currently [Singularity](https://sylabs.io/singularity/) and [Apptainer](https://apptainer.org/docs/admin/main/index.html) are supported.
 ### Hardware
 - A POSIX-compatible system (Linux, macOS, etc) or Windows through [WSL](https://en.wikipedia.org/wiki/Windows_Subsystem_for_Linux).
 - At least 16GB of RAM.
