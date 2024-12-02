@@ -17,7 +17,7 @@ import shutil
 from urllib.request import urlretrieve
 import gzip
 import re
-from git import Repo  # pip install gitpython
+from git import Repo
 import subprocess
 
 
@@ -34,6 +34,8 @@ def check_dbdir(database_directory):
 		database_directory += '/'
 	if not os.path.exists(database_directory):
 		os.makedirs(database_directory)
+	if not os.path.isabs(database_directory):
+		raise ValueError(f"\n\n\nInput error: The provided path '{database_directory}' is not a full (absolute) path.")
 
 	return database_directory
 
@@ -63,6 +65,8 @@ def get_host_kraken2(database_directory, host_kraken2_url):
 	os.rename("db", "host_kraken2_db")
 	host_kraken2db_path = os.path.join(database_directory, "host_kraken2_db/")
 
+	os.rename("db" , host_kraken2db_path)
+
 	return(host_kraken2db_path)
 
 
@@ -77,7 +81,7 @@ def get_kraken2db(database_directory, kraken2_url):
 	kraken2db_dir += '/'
 	urlretrieve(kraken2_url, kraken2db)
 	with tarfile.open(kraken2db, "r:gz") as tar:
-		tar.extractall(kraken2db_dir)
+		tar.extractall(path=kraken2db_dir)
 
 	os.remove(kraken2db)
 
@@ -100,6 +104,15 @@ def get_centrifugerdb(database_directory, centrifugerdb_url):
 	return(centrifugerdb_path)
 
 
+def get_gtdb_mash(database_directory, gtdb_mash_url):
+	filename = os.path.basename(gtdb_mash_url)
+	gtdb_mash_path = os.path.join(database_directory, filename)
+
+	urlretrieve(gtdb_mash_url, gtdb_mash_path)
+
+	return(gtdb_mash_path)
+
+
 def get_checkmdb(database_directory, checkmdb_url):
 	filename = os.path.basename(checkmdb_url)
 	checkmdb_path = os.path.join(database_directory, filename)
@@ -112,7 +125,7 @@ def get_checkmdb(database_directory, checkmdb_url):
 	checkmdb_dir += '/'
 
 	with tarfile.open(checkmdb_path, "r:gz") as tar:
-		tar.extractall(checkmdb_dir)
+		tar.extractall(path=checkmdb_dir)
 
 	return checkmdb_dir
 
@@ -139,10 +152,9 @@ def get_genomad(database_directory, genomad_url):
 	filename = os.path.basename(genomad_url)
 	genomad_db_path = os.path.join(database_directory, filename)
 	urlretrieve(genomad_url, genomad_db_path)
-	with tarfile.open(genomad_db_path, "r:gz") as tar:
-		tar.extractall()
-
 	genomad_dbdir_path = os.path.join(database_directory, "genomad_db/")
+	with tarfile.open(genomad_db_path, "r:gz") as tar:
+		tar.extractall(path=genomad_dbdir_path)
 
 	os.remove(genomad_db_path)
 
@@ -158,6 +170,20 @@ def get_fdb(database_directory, fdb_url):
 		Repo.clone_from(fdb_url, fdb_path)
 
 	return(fdb_path)
+
+def get_gtdb(database_directory, gtdb_url):
+	filename = os.path.basename(gtdb_url)
+	gtdb_db_path = os.path.join(database_directory, filename)
+	urlretrieve(gtdb_url, gtdb_db_path)
+
+	gtdb_dbdir_path = os.path.join(database_directory, "gtdb_db/")
+
+	with tarfile.open(gtdb_db_path, "r:gz") as tar:
+		tar.extractall(path=gtdb_dbdir_path)
+
+	os.remove(gtdb_db_path)
+
+	return(gtdb_dbdir_path)
 
 
 def unpack_repo(database_directory, repodir):
@@ -183,26 +209,29 @@ def parse_args():
 	parser.add_argument("--config_file", required=True, help="Config file")
 	parser.add_argument("--db_dir", required=True, help="Database directory")
 	parser.add_argument("--genomad", required=False, action='store_true', help="Get geNomad database")
-	parser.add_argument("--genomad_url", required=False, default="https://zenodo.org/records/10594875/files/genomad_db_v1.7.tar.gz", help="geNomad database URL")
+	parser.add_argument("--genomad_url", required=False, default="https://zenodo.org/records/10594875/files/genomad_db_v1.7.tar.gz", help="geNomad database url")
 	parser.add_argument("--host_assembly", required=False, action='store_true', help="Get host reference assembly")
-	parser.add_argument("--host_assembly_url", required=False, default="https://objectstorage.uk-london-1.oraclecloud.com/n/lrbvkel2wjot/b/human-genome-bucket/o/human-t2t-hla-argos985.fa.gz", help="URL of host assembly database URL")
+	parser.add_argument("--host_assembly_url", required=False, default="https://objectstorage.uk-london-1.oraclecloud.com/n/lrbvkel2wjot/b/human-genome-bucket/o/human-t2t-hla-argos985.fa.gz", help="url of host assembly database url")
 	parser.add_argument("--host_kraken2db", required=False, action='store_true', help="Get Host Kraken2 database")
-	parser.add_argument("--host_kraken2db_url", required=False, default="https://zenodo.org/records/8339732/files/k2_HPRC_20230810.tar.gz", help="URL of host Kraken2 database")
+	parser.add_argument("--host_kraken2db_url", required=False, default="https://zenodo.org/records/8339732/files/k2_HPRC_20230810.tar.gz", help="url of host Kraken2 database")
 	parser.add_argument("--kraken2db", required=False, action='store_true', help="Get Kraken2 database for taxonomic assignment of reads")
-	parser.add_argument("--kraken2db_url", required=False, default="https://genome-idx.s3.amazonaws.com/kraken/k2_standard_16gb_20240605.tar.gz", help="URL of Kraken2 database for taxonomic assignment of reads")
+	parser.add_argument("--kraken2db_url", required=False, default="https://genome-idx.s3.amazonaws.com/kraken/k2_standard_16gb_20240605.tar.gz", help="url of Kraken2 database for taxonomic assignment of reads")
 	parser.add_argument("--sylphdb", required=False, action='store_true', help="Get Sylph database for taxonomic assignment of reads")
-	parser.add_argument("--sylphdb_url", required=False,default="https://storage.googleapis.com/sylph-stuff/gtdb-r220-c200-dbv1.syldb",help="URL of Sylph database")
+	parser.add_argument("--sylphdb_url", required=False,default="https://storage.googleapis.com/sylph-stuff/gtdb-r220-c200-dbv1.syldb",help="url of Sylph database")
 	parser.add_argument("--checkmdb", required=False, action='store_true', help="Get CheckM database")
-	parser.add_argument("--checkmdb_URL", required=False, default="https://zenodo.org/records/7401545/files/checkm_data_2015_01_16.tar.gz",help="URL of Sylph database")
+	parser.add_argument("--checkmdb_url", required=False, default="https://zenodo.org/records/7401545/files/checkm_data_2015_01_16.tar.gz",help="url of Sylph database")
 	parser.add_argument("--virulencefinderdb", required=False, action='store_true', help="Get VirulenceFinder database")
-	parser.add_argument("--virulencefinderdb_URL", required=False, default="https://bitbucket.org/genomicepidemiology/virulencefinder_db/", help="URL of VirulenceFinder database")
+	parser.add_argument("--virulencefinderdb_url", required=False, default="https://bitbucket.org/genomicepidemiology/virulencefinder_db/", help="url of VirulenceFinder database")
 	parser.add_argument("--pointfinderdb", required=False, action='store_true', help="Get PointFinder database")
-	parser.add_argument("--pointfinderdb_URL", required=False, default="https://bitbucket.org/genomicepidemiology/pointfinder_db/", help="URL of PointFinder database")
+	parser.add_argument("--pointfinderdb_url", required=False, default="https://bitbucket.org/genomicepidemiology/pointfinder_db/", help="url of PointFinder database")
 	parser.add_argument("--resfinderdb", required=False, action='store_true', help="Get ResFinder database")
-	parser.add_argument("--resfinderdb_URL", required=False, default="https://bitbucket.org/genomicepidemiology/resfinder_db/", help="URL of ResFinder database")
+	parser.add_argument("--resfinderdb_url", required=False, default="https://bitbucket.org/genomicepidemiology/resfinder_db/", help="url of ResFinder database")
 	parser.add_argument("--centrifugerdb", required=False, action='store_true', help="Get Centrifuger database")
-	parser.add_argument("--centrifugerdb_URL", required=False, default="https://zenodo.org/records/10023239/files/cfr_hpv+gbsarscov2.*.cfr", help="URL of Centrifuger database")
-
+	parser.add_argument("--centrifugerdb_url", required=False, default="https://zenodo.org/records/10023239/files/cfr_hpv+gbsarscov2.*.cfr", help="url of Centrifuger database")
+	parser.add_argument("--gtdb", required=False, action='store_true', help="Get GTDB-Tk reference database")
+	parser.add_argument("--gtdb_url", required=False, default="https://data.ace.uq.edu.au/public/gtdb/data/releases/release220/220.0/auxillary_files/gtdbtk_package/full_package/gtdbtk_r220_data.tar.gz", help="url of GTDB-Tk reference database")
+	parser.add_argument("--gtdb_mash", required=False, action='store_true', help="Get GTDB-Tk reference database")
+	parser.add_argument("--gtdb_mash_url", required=False, default="https://zenodo.org/records/13731176/files/r220.msh", help="Get GTDB-Tk reference mash database")
 	parser.add_argument("--version", action="version", version='Version: %s' % (__version__))
 
 	return(parser.parse_args())
@@ -216,29 +245,29 @@ def main():
 	database_dir = check_dbdir(args.db_dir)
 
 	if args.centrifugerdb:
-		centrifugerdb_path = get_centrifugerdb(database_dir, args.centrifugerdb_URL)
+		centrifugerdb_path = get_centrifugerdb(database_dir, args.centrifugerdb_url)
 		rewrite_config(args.config_file, centrifugerdb_path, "TAXONOMIC_PROFILING.centrifugerdb")
 
 	if args.virulencefinderdb:
-		vfdb_path = get_fdb(database_dir, args.virulencefinderdb_URL)
+		vfdb_path = get_fdb(database_dir, args.virulencefinderdb_url)
 		version = unpack_repo(database_dir, vfdb_path)
 		rewrite_config(args.config_file, vfdb_path, "VIRULENCEFINDER.db ")
 		rewrite_config(args.config_file, version, "VIRULENCEFINDER.db_version")
 
 	if args.resfinderdb:
-		rfdb_path = get_fdb(database_dir, args.resfinderdb_URL)
+		rfdb_path = get_fdb(database_dir, args.resfinderdb_url)
 		version = unpack_repo(database_dir, rfdb_path)
 		rewrite_config(args.config_file, rfdb_path, "RESFINDER.db ")
 		rewrite_config(args.config_file, version, "RESFINDER.db_version")
 
 	if args.pointfinderdb:
-		pfdb_path = get_fdb(database_dir, args.pointfinderdb_URL)
+		pfdb_path = get_fdb(database_dir, args.pointfinderdb_url)
 		version = unpack_repo(database_dir, pfdb_path)
 		rewrite_config(args.config_file, pfdb_path, "POINTFINDER.db ")
 		rewrite_config(args.config_file, version, "POINTFINDER.db_version")
 
 	if args.checkmdb:
-		checkmdb_dir_path = get_checkmdb(database_dir, args.checkmdb_URL)
+		checkmdb_dir_path = get_checkmdb(database_dir, args.checkmdb_url)
 		rewrite_config(args.config_file, checkmdb_dir_path, "CHECKM_LINEAGEWF.db")
 
 	if args.kraken2db:
@@ -261,13 +290,13 @@ def main():
 		host_assembly_path = get_host_assembly(database_dir, args.host_assembly_url)
 		rewrite_config(args.config_file, host_assembly_path, "READ_DECONTAMINATION.host_assembly")
 
-# TAXONOMIC_PROFILING.dbdir
-# SKANI_SEARCH.db
-# GTDBTK_CLASSIFYWF.mash_db
+	if args.gtdb:
+		gtdb_path = get_gtdb(database_dir, args.gtdb_url)
+		rewrite_config(args.config_file, gtdb_path, "GTDBTK_CLASSIFYWF.gtdb_db")
 
-# AMRFINDERPLUS_RUN.db
-# MLST.yersinia_blastdb
-
+	if args.gtdb_mash:
+		gtdb_mash_path = get_gtdb_mash(database_dir, args.gtdb_mash_url)
+		rewrite_config(args.config_file, gtdb_mash_path, "GTDBTK_CLASSIFYWF.mash_db")
 
 if __name__ == "__main__":
 	main()
