@@ -333,7 +333,7 @@ def process_amr_typing(hamr_filenames, tool):
 #
 def process_plasmidfinder(plasmidfinder_filenames):
 	plasmidfinder_summary = pd.concat([pd.read_csv(f, sep='\t') for f in plasmidfinder_filenames ])
-	plasmidfinder_summary['Bin'] = plasmidfinder_summary['Contig'].str.split('.').str[2].str.replace('bin_', '')
+	plasmidfinder_summary['Bin'] = plasmidfinder_summary['Contig'].str.split('.').str[1].str.replace('bin_', '')
 	plasmidfinder_summary['Note'] = plasmidfinder_summary['Note'].fillna("")
 	plasmidfinder_summary = plasmidfinder_summary.sort_values('Bin')
 
