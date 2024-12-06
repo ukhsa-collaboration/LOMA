@@ -193,7 +193,8 @@ def consensus_designation(shigeifinder_designation, shigatyper_designation, stec
 # Merge metrics into a single tables returning the relevant columns
 def merge_tables(shigeifinder, shigatyper, stecfinder, mlst, ectyper, mykrobe, top_assignment, output, bin):
 	metrics = [shigeifinder, shigatyper, stecfinder, ectyper, mlst, mykrobe]
-	mykrobe['Name'] = shigeifinder['Name'][0]
+	mykrobe['Name'] = shigeifinder['Name'][0]        
+	shigatyper['Name'] = shigeifinder['Name'][0]
 	merge = partial(pd.merge, on=['Name'], how='outer')
 	merged_metrics = (reduce(merge, metrics))
 
