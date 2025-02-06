@@ -14,10 +14,10 @@ workflow READ_DECONTAMINATION {
 
     take:
     qc_pass_reads      // channel: [ val(meta), path(reads) ]
-    ch_candidate_reads = Channel.empty()
 
     main:
     ch_versions = Channel.empty()
+    ch_candidate_reads = Channel.empty()
 
     if (params.READ_DECONTAMINATION.host_assembly) {
        MINIMAP2_ALIGN(qc_pass_reads, [[],params.READ_DECONTAMINATION.host_assembly], true, false, false)
