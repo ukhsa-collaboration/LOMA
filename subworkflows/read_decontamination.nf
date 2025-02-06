@@ -14,6 +14,7 @@ workflow READ_DECONTAMINATION {
 
     take:
     qc_pass_reads      // channel: [ val(meta), path(reads) ]
+    ch_candidate_reads = Channel.empty()
 
     main:
     ch_versions = Channel.empty()
