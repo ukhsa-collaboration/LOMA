@@ -62,7 +62,6 @@ def get_host_kraken2(database_directory, host_kraken2_url):
 	with tarfile.open(host_kraken2db, "r:gz") as tar:
 		tar.extractall()
 
-	os.rename("db", "host_kraken2_db")
 	host_kraken2db_path = os.path.join(database_directory, "host_kraken2_db/")
 
 	os.rename("db" , host_kraken2db_path)
