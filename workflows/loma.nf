@@ -76,7 +76,13 @@ else if (params.input_type =="fastq") {
     ch_final_report = ch_final_report.mix(READQC_PLOT.out.ch_readqc_stats)
 
     if (!params.skip_taxonomic_profiling ) {
-        TAXONOMIC_PROFILING(READ_QC.out.qc_pass_reads)
+        if (params.TAXONOMIC_PROFILING.use_decontaminated_reads) {
+            ch_taxonomic_profiling_reads = READ_DECONTAMINATION.out.postqc_reads
+        } else {
+            ch_taxonomic_profiling_reads = READ_QC.out.qc_pass_reads
+        }
+
+        TAXONOMIC_PROFILING(ch_taxonomic_profiling_reads)
         ch_versions = ch_versions.mix(TAXONOMIC_PROFILING.out.versions)
 
         ch_final_report = ch_final_report.mix(TAXONOMIC_PROFILING.out.ch_taxreports)
