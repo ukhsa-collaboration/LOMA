@@ -181,6 +181,11 @@
             "description": "",
             "default": "",
             "properties": {
+                "TAXONOMIC_PROFILING.use_decontaminated_reads": {
+                    "type": "boolean",
+                    "description": "Analyse reads after host read removal",
+                    "hidden": true
+                },
                 "TAXONOMIC_PROFILING.krakendb": {
                     "type": "string",
                     "description": "Path to Kraken2 database.",
@@ -212,7 +217,7 @@
                     "hidden": true,
                     "format": "file-path"
                 },
-                "new_param_3": {
+                "TAXONOMIC_PROFILING.gtdb_metadata": {
                     "type": "string",
                     "description": "GTDB metadata file (typically gtdb_r*_metadata.tsv.gz).",
                     "hidden": true,
